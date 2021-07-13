@@ -1,7 +1,21 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 module Lib
-  ( someFunc,
+  ( main,
   )
 where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+import qualified Data.Aeson
+import GHC.Generics
+import Web.Scotty
+
+data Payload = Payload {a :: String} deriving (Show, Generic)
+
+instance Data.Aeson.ToJSON Payload
+
+main :: IO ()
+main =
+  scotty 3000 $
+    get "/" $
+      json $ Payload {a = "test"}
