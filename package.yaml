@@ -1,0 +1,41 @@
+name: haskell-ddd-order-taking
+version: 0.1.0.0
+github: "nakaakist/haskell-ddd-order-taking"
+license: BSD3
+author: "Nariyuki Saito"
+maintainer: "toshincompos@gmail.com"
+copyright: "2021 Nariyuki Saito"
+
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+
+description: Please see the README on GitHub at <https://github.com/nakaakist/haskell-ddd-order-taking>
+
+dependencies:
+  - base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  haskell-ddd-order-taking-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - haskell-ddd-order-taking
+
+tests:
+  haskell-ddd-order-taking-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - haskell-ddd-order-taking

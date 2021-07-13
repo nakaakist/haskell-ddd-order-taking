@@ -1,0 +1,60 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           haskell-ddd-order-taking
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/nakaakist/haskell-ddd-order-taking>
+homepage:       https://github.com/nakaakist/haskell-ddd-order-taking#readme
+bug-reports:    https://github.com/nakaakist/haskell-ddd-order-taking/issues
+author:         Nariyuki Saito
+maintainer:     toshincompos@gmail.com
+copyright:      2021 Nariyuki Saito
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/nakaakist/haskell-ddd-order-taking
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_haskell_ddd_order_taking
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable haskell-ddd-order-taking-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_haskell_ddd_order_taking
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , haskell-ddd-order-taking
+  default-language: Haskell2010
+
+test-suite haskell-ddd-order-taking-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_haskell_ddd_order_taking
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , haskell-ddd-order-taking
+  default-language: Haskell2010
