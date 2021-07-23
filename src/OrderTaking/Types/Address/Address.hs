@@ -9,14 +9,19 @@ module OrderTaking.Types.Address.Address
 where
 
 import Data.Text (Text)
-import OrderTaking.Shared (DomainError, createStringInLengthRange)
+import OrderTaking.Shared
+  ( DomainError,
+    createMaybeStringInLengthRange,
+    createStringInLengthRange,
+    valueFromMaybeString,
+  )
 import qualified OrderTaking.Types.Address.ZipCode as ZipCode
 
 data Address = AddressPrivate
   { addressLine1Private :: Text,
-    addressLine2Private :: Text,
-    addressLine3Private :: Text,
-    addressLine4Private :: Text,
+    addressLine2Private :: Maybe Text,
+    addressLine3Private :: Maybe Text,
+    addressLine4Private :: Maybe Text,
     cityPrivate :: Text,
     zipCodePrivate :: ZipCode.ZipCode
   }
@@ -43,9 +48,9 @@ create
       zipCode = z
     } = do
     a1' <- createStringInLengthRange a1 "address line 1" 0 50
-    a2' <- createStringInLengthRange a2 "address line 2" 0 50
-    a3' <- createStringInLengthRange a3 "address line 3" 0 50
-    a4' <- createStringInLengthRange a4 "address line 4" 0 50
+    a2' <- createMaybeStringInLengthRange a2 "address line 2" 0 50
+    a3' <- createMaybeStringInLengthRange a3 "address line 3" 0 50
+    a4' <- createMaybeStringInLengthRange a4 "address line 4" 0 50
     c' <- createStringInLengthRange c "city" 0 50
     z' <- ZipCode.create z
     return
@@ -70,9 +75,9 @@ value
     } =
     Params
       { addressLine1 = a1,
-        addressLine2 = a2,
-        addressLine3 = a3,
-        addressLine4 = a4,
+        addressLine2 = valueFromMaybeString a2,
+        addressLine3 = valueFromMaybeString a3,
+        addressLine4 = valueFromMaybeString a4,
         city = c,
         zipCode = ZipCode.value z
       }

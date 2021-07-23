@@ -3,6 +3,8 @@
 module OrderTaking.Shared
   ( DomainError,
     createStringInLengthRange,
+    createMaybeStringInLengthRange,
+    valueFromMaybeString,
     createStringMatchedToPattern,
     createNumInRange,
   )
@@ -23,6 +25,18 @@ createStringInLengthRange text fieldName min max
   | otherwise = Left $ fieldName <> " " <> text <> " is invalid. length must be between " <> toText min <> " and " <> toText max
   where
     len = T.length text
+
+createMaybeStringInLengthRange :: Text -> FieldName -> Int -> Int -> Either DomainError (Maybe Text)
+createMaybeStringInLengthRange text fieldName min max
+  | len == 0 = Right Nothing
+  | len >= min && len <= max = Right $ Just text
+  | otherwise = Left $ fieldName <> " " <> text <> " is invalid. length must be 0 or between " <> toText min <> " and " <> toText max
+  where
+    len = T.length text
+
+valueFromMaybeString :: Maybe Text -> Text
+valueFromMaybeString (Just t) = t
+valueFromMaybeString Nothing = ""
 
 type Pattern = Text
 

@@ -29,6 +29,19 @@ spec = do
       let Right address = Address.create params
       Address.value address `shouldBe` params
 
+    it "should success to create address with only address line 1" $ do
+      let params =
+            Address.Params
+              { Address.addressLine1 = validAddressLine,
+                Address.addressLine2 = "",
+                Address.addressLine3 = "",
+                Address.addressLine4 = "",
+                Address.city = validCity,
+                Address.zipCode = validZipCode
+              }
+      let Right address = Address.create params
+      Address.value address `shouldBe` params
+
     it "should fail to create address with zip code hoge" $ do
       let params = createParamsWithZipCode "hoge"
       Address.create params `shouldBe` Left "zip code hoge is invalid. must be 5 digits number"
