@@ -26,6 +26,20 @@ source-repository head
 library
   exposed-modules:
       Lib
+      OrderTaking.Shared
+      OrderTaking.Types.BillingAmount
+      OrderTaking.Types.EmailAddress
+      OrderTaking.Types.GizmoCode
+      OrderTaking.Types.KilogramQuantity
+      OrderTaking.Types.OrderId
+      OrderTaking.Types.OrderLineId
+      OrderTaking.Types.OrderQuantity
+      OrderTaking.Types.PdfAttachment
+      OrderTaking.Types.Price
+      OrderTaking.Types.ProductCode
+      OrderTaking.Types.UnitQuantity
+      OrderTaking.Types.WidgetCode
+      OrderTaking.Types.ZipCode
   other-modules:
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
@@ -33,7 +47,11 @@ library
   build-depends:
       aeson >=1.3.1.1
     , base >=4.7 && <5
+    , bytestring >=0.10.12.0
+    , email-validate >=2.3.2.15
+    , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
+    , text >=1.2.4.1
   default-language: Haskell2010
 
 executable haskell-ddd-order-taking-exe
@@ -46,14 +64,26 @@ executable haskell-ddd-order-taking-exe
   build-depends:
       aeson >=1.3.1.1
     , base >=4.7 && <5
+    , bytestring >=0.10.12.0
+    , email-validate >=2.3.2.15
     , haskell-ddd-order-taking
+    , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
+    , text >=1.2.4.1
   default-language: Haskell2010
 
 test-suite haskell-ddd-order-taking-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Spec.OrderTaking.Types.BillingAmount
+      Spec.OrderTaking.Types.EmailAddress
+      Spec.OrderTaking.Types.OrderId
+      Spec.OrderTaking.Types.OrderLineId
+      Spec.OrderTaking.Types.OrderQuantity
+      Spec.OrderTaking.Types.Price
+      Spec.OrderTaking.Types.ProductCode
+      Spec.OrderTaking.Types.ZipCode
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
       test
@@ -61,6 +91,11 @@ test-suite haskell-ddd-order-taking-test
   build-depends:
       aeson >=1.3.1.1
     , base >=4.7 && <5
+    , bytestring >=0.10.12.0
+    , email-validate >=2.3.2.15
     , haskell-ddd-order-taking
+    , hspec >=2.7.10
+    , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
+    , text >=1.2.4.1
   default-language: Haskell2010

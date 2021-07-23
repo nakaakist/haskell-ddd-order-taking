@@ -10,7 +10,7 @@ import qualified Data.Aeson
 import GHC.Generics
 import Web.Scotty
 
-data Payload = Payload {a :: String} deriving (Show, Generic)
+data Payload = Payload {a :: String} deriving (Generic)
 
 instance Data.Aeson.ToJSON Payload
 
