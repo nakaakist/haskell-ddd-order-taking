@@ -27,7 +27,9 @@ library
   exposed-modules:
       Lib
       OrderTaking.Shared
+      OrderTaking.Types.Address
       OrderTaking.Types.BillingAmount
+      OrderTaking.Types.CustomerInfo
       OrderTaking.Types.EmailAddress
       OrderTaking.Types.GizmoCode
       OrderTaking.Types.KilogramQuantity
@@ -35,6 +37,7 @@ library
       OrderTaking.Types.OrderLineId
       OrderTaking.Types.OrderQuantity
       OrderTaking.Types.PdfAttachment
+      OrderTaking.Types.PersonalName
       OrderTaking.Types.Price
       OrderTaking.Types.ProductCode
       OrderTaking.Types.UnitQuantity
