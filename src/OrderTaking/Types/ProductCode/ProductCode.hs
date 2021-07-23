@@ -1,16 +1,16 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.ProductCode
+module OrderTaking.Types.ProductCode.ProductCode
   ( ProductCode (..),
-    OrderTaking.Types.ProductCode.create,
-    OrderTaking.Types.ProductCode.value,
+    create,
+    value,
   )
 where
 
 import Data.Text as T (Text, head)
 import OrderTaking.Shared (DomainError)
-import qualified OrderTaking.Types.GizmoCode as GizmoCode
-import qualified OrderTaking.Types.WidgetCode as WidgetCode
+import qualified OrderTaking.Types.ProductCode.GizmoCode as GizmoCode
+import qualified OrderTaking.Types.ProductCode.WidgetCode as WidgetCode
 
 data ProductCode = Widget WidgetCode.WidgetCode | Gizmo GizmoCode.GizmoCode deriving (Show, Eq)
 

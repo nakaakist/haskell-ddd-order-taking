@@ -2,7 +2,7 @@
 
 module OrderTaking.Types.BillingAmountSpec (spec) where
 
-import OrderTaking.Types.BillingAmount as BillingAmount
+import qualified OrderTaking.Types.BillingAmount as BillingAmount
 import Test.Hspec
 
 spec :: Spec

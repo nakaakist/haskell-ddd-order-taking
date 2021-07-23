@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.Address
+module OrderTaking.Types.Address.Address
   ( Address,
-    AddressDto,
+    Params (..),
     create,
     value,
   )
@@ -10,7 +10,7 @@ where
 
 import Data.Text (Text)
 import OrderTaking.Shared (DomainError, createStringInLengthRange)
-import qualified OrderTaking.Types.ZipCode as ZipCode
+import qualified OrderTaking.Types.Address.ZipCode as ZipCode
 
 data Address = AddressPrivate
   { addressLine1Private :: Text,
@@ -22,7 +22,7 @@ data Address = AddressPrivate
   }
   deriving (Show, Eq)
 
-data AddressDto = AddressDto
+data Params = Params
   { addressLine1 :: Text,
     addressLine2 :: Text,
     addressLine3 :: Text,
@@ -32,9 +32,9 @@ data AddressDto = AddressDto
   }
   deriving (Show, Eq)
 
-create :: AddressDto -> Either DomainError Address
+create :: Params -> Either DomainError Address
 create
-  AddressDto
+  Params
     { addressLine1 = a1,
       addressLine2 = a2,
       addressLine3 = a3,
@@ -58,7 +58,7 @@ create
           zipCodePrivate = z'
         }
 
-value :: Address -> AddressDto
+value :: Address -> Params
 value
   AddressPrivate
     { addressLine1Private = a1,
@@ -68,7 +68,7 @@ value
       cityPrivate = c,
       zipCodePrivate = z
     } =
-    AddressDto
+    Params
       { addressLine1 = a1,
         addressLine2 = a2,
         addressLine3 = a3,

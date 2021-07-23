@@ -1,17 +1,17 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.OrderQuantity
+module OrderTaking.Types.OrderQuantity.OrderQuantity
   ( OrderQuantity,
-    OrderTaking.Types.OrderQuantity.create,
-    OrderTaking.Types.OrderQuantity.value,
+    create,
+    value,
   )
 where
 
 import Data.Text (Text)
 import OrderTaking.Shared (DomainError)
-import qualified OrderTaking.Types.KilogramQuantity as KilogramQuantity
-import qualified OrderTaking.Types.ProductCode as ProductCode
-import qualified OrderTaking.Types.UnitQuantity as UnitQuantity
+import qualified OrderTaking.Types.OrderQuantity.KilogramQuantity as KilogramQuantity
+import qualified OrderTaking.Types.OrderQuantity.UnitQuantity as UnitQuantity
+import qualified OrderTaking.Types.ProductCode.ProductCode as ProductCode
 
 data OrderQuantity = Unit UnitQuantity.UnitQuantity | Kilo KilogramQuantity.KilogramQuantity deriving (Show, Eq)
 

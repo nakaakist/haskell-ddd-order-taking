@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.PersonalName
+module OrderTaking.Types.CustomerInfo.PersonalName
   ( PersonalName,
-    PersonalNameDto,
+    Params (..),
     create,
     value,
   )
@@ -17,14 +17,14 @@ data PersonalName = PersonalNamePrivate
   }
   deriving (Show, Eq)
 
-data PersonalNameDto = PersonalNameDto
+data Params = Params
   { firstName :: Text,
     lastName :: Text
   }
   deriving (Show, Eq)
 
-create :: PersonalNameDto -> Either DomainError PersonalName
-create PersonalNameDto {firstName = f, lastName = l} = do
+create :: Params -> Either DomainError PersonalName
+create Params {firstName = f, lastName = l} = do
   f' <- createStringInLengthRange f "first name" 0 50
   l' <- createStringInLengthRange l "last name" 0 50
   return
@@ -33,13 +33,13 @@ create PersonalNameDto {firstName = f, lastName = l} = do
         lastNamePrivate = l'
       }
 
-value :: PersonalName -> PersonalNameDto
+value :: PersonalName -> Params
 value
   PersonalNamePrivate
     { firstNamePrivate = f,
       lastNamePrivate = l
     } =
-    PersonalNameDto
+    Params
       { firstName = f,
         lastName = l
       }

@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.WidgetCode
+module OrderTaking.Types.ProductCode.WidgetCode
   ( WidgetCode,
     create,
     value,

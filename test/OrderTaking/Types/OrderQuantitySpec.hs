@@ -2,8 +2,8 @@
 
 module OrderTaking.Types.OrderQuantitySpec (spec) where
 
-import OrderTaking.Types.OrderQuantity as OrderQuantity
-import OrderTaking.Types.ProductCode as ProductCode
+import qualified OrderTaking.Types.OrderQuantity.OrderQuantity as OrderQuantity
+import qualified OrderTaking.Types.ProductCode.ProductCode as ProductCode
 import Test.Hspec
 
 spec :: Spec

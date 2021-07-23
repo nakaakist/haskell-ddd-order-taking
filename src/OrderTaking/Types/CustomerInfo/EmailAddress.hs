@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.EmailAddress
+module OrderTaking.Types.CustomerInfo.EmailAddress
   ( EmailAddress,
     create,
     value,

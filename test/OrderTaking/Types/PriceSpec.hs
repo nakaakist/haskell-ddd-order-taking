@@ -2,7 +2,7 @@
 
 module OrderTaking.Types.PriceSpec (spec) where
 
-import OrderTaking.Types.Price as Price
+import qualified OrderTaking.Types.Price as Price
 import Test.Hspec
 
 spec :: Spec

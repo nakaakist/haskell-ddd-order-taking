@@ -2,7 +2,7 @@
 
 module OrderTaking.Types.OrderIdSpec (spec) where
 
-import OrderTaking.Types.OrderId as OrderId
+import qualified OrderTaking.Types.OrderId as OrderId
 import Test.Hspec
 
 spec :: Spec

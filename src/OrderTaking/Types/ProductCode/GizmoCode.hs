@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.GizmoCode
+module OrderTaking.Types.ProductCode.GizmoCode
   ( GizmoCode,
     create,
     value,

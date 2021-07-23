@@ -2,7 +2,7 @@
 
 module OrderTaking.Types.ProductCodeSpec (spec) where
 
-import OrderTaking.Types.ProductCode as ProductCode
+import qualified OrderTaking.Types.ProductCode.ProductCode as ProductCode
 import Test.Hspec
 
 spec :: Spec

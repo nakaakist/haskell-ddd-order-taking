@@ -27,22 +27,22 @@ library
   exposed-modules:
       Lib
       OrderTaking.Shared
-      OrderTaking.Types.Address
+      OrderTaking.Types.Address.Address
+      OrderTaking.Types.Address.ZipCode
       OrderTaking.Types.BillingAmount
-      OrderTaking.Types.CustomerInfo
-      OrderTaking.Types.EmailAddress
-      OrderTaking.Types.GizmoCode
-      OrderTaking.Types.KilogramQuantity
+      OrderTaking.Types.CustomerInfo.CustomerInfo
+      OrderTaking.Types.CustomerInfo.EmailAddress
+      OrderTaking.Types.CustomerInfo.PersonalName
       OrderTaking.Types.OrderId
       OrderTaking.Types.OrderLineId
-      OrderTaking.Types.OrderQuantity
+      OrderTaking.Types.OrderQuantity.KilogramQuantity
+      OrderTaking.Types.OrderQuantity.OrderQuantity
+      OrderTaking.Types.OrderQuantity.UnitQuantity
       OrderTaking.Types.PdfAttachment
-      OrderTaking.Types.PersonalName
       OrderTaking.Types.Price
-      OrderTaking.Types.ProductCode
-      OrderTaking.Types.UnitQuantity
-      OrderTaking.Types.WidgetCode
-      OrderTaking.Types.ZipCode
+      OrderTaking.Types.ProductCode.GizmoCode
+      OrderTaking.Types.ProductCode.ProductCode
+      OrderTaking.Types.ProductCode.WidgetCode
   other-modules:
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
@@ -79,14 +79,14 @@ test-suite haskell-ddd-order-taking-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      OrderTaking.Types.AddressSpec
       OrderTaking.Types.BillingAmountSpec
-      OrderTaking.Types.EmailAddressSpec
+      OrderTaking.Types.CustomerInfoSpec
       OrderTaking.Types.OrderIdSpec
       OrderTaking.Types.OrderLineIdSpec
       OrderTaking.Types.OrderQuantitySpec
       OrderTaking.Types.PriceSpec
       OrderTaking.Types.ProductCodeSpec
-      OrderTaking.Types.ZipCodeSpec
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
       test

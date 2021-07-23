@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.ZipCode
+module OrderTaking.Types.Address.ZipCode
   ( ZipCode,
     create,
     value,

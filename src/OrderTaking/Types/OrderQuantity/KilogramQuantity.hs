@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.KilogramQuantity
+module OrderTaking.Types.OrderQuantity.KilogramQuantity
   ( KilogramQuantity,
     create,
     value,

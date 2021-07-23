@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.UnitQuantity
+module OrderTaking.Types.OrderQuantity.UnitQuantity
   ( UnitQuantity,
     create,
     value,
