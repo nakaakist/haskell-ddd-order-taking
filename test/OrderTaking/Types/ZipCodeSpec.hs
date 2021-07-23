@@ -1,10 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+module OrderTaking.Types.ZipCodeSpec (spec) where
+
 import OrderTaking.Types.ZipCode as ZipCode
 import Test.Hspec
 
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "ZipCode" $ do
     it "should success to create 12345" $ do
       let Right e = ZipCode.create "12345"

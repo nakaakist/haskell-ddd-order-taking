@@ -1,10 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+module OrderTaking.Types.EmailAddressSpec (spec) where
+
 import OrderTaking.Types.EmailAddress as EmailAddress
 import Test.Hspec
 
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "EmailAddress" $ do
     it "should success to create toshincompos@gmail.com" $ do
       let Right e = EmailAddress.create "toshincompos@gmail.com"

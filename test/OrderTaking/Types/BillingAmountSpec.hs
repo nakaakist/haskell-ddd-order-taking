@@ -1,10 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+module OrderTaking.Types.BillingAmountSpec (spec) where
+
 import OrderTaking.Types.BillingAmount as BillingAmount
 import Test.Hspec
 
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "BillingAmount" $ do
     it "should success to create BillingAmount between 1 to 10000" $ do
       let Right a = BillingAmount.create 1000.0

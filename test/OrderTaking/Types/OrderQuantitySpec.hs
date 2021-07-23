@@ -1,11 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+module OrderTaking.Types.OrderQuantitySpec (spec) where
+
 import OrderTaking.Types.OrderQuantity as OrderQuantity
 import OrderTaking.Types.ProductCode as ProductCode
 import Test.Hspec
 
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "OrderQuantity" $ do
     let Right widgetCode = ProductCode.create "W1234"
     let Right gizmoCode = ProductCode.create "G123"
@@ -26,4 +28,4 @@ main = hspec $ do
       OrderQuantity.create widgetCode 0.0 `shouldBe` Left "unit quantity 0 is invalid. must be between 1 and 1000"
 
     it "should fail to create invalid kilogram quantity with gizmo code" $ do
-      OrderQuantity.create gizmoCode 0.4 `shouldBe` Left "kilogram quantity 0.4 is invalid. must be between 0.5 and 100"
+      OrderQuantity.create gizmoCode 0.4 `shouldBe` Left "kilogram quantity 0.4 is invalid. must be between 0.5 and 100.0"

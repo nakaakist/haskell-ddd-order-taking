@@ -76,26 +76,26 @@ test-suite haskell-ddd-order-taking-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Spec.OrderTaking.Types.BillingAmount
-      Spec.OrderTaking.Types.EmailAddress
-      Spec.OrderTaking.Types.OrderId
-      Spec.OrderTaking.Types.OrderLineId
-      Spec.OrderTaking.Types.OrderQuantity
-      Spec.OrderTaking.Types.Price
-      Spec.OrderTaking.Types.ProductCode
-      Spec.OrderTaking.Types.ZipCode
+      OrderTaking.Types.BillingAmountSpec
+      OrderTaking.Types.EmailAddressSpec
+      OrderTaking.Types.OrderIdSpec
+      OrderTaking.Types.OrderLineIdSpec
+      OrderTaking.Types.OrderQuantitySpec
+      OrderTaking.Types.PriceSpec
+      OrderTaking.Types.ProductCodeSpec
+      OrderTaking.Types.ZipCodeSpec
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
       test
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson >=1.3.1.1
     , base >=4.7 && <5
     , bytestring >=0.10.12.0
     , email-validate >=2.3.2.15
     , haskell-ddd-order-taking
-    , hspec >=2.7.10
+    , hspec ==2.*
     , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
     , text >=1.2.4.1
   default-language: Haskell2010
+  build-tool-depends: hspec-discover:hspec-discover == 2.*

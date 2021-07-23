@@ -1,10 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+module OrderTaking.Types.OrderIdSpec (spec) where
+
 import OrderTaking.Types.OrderId as OrderId
 import Test.Hspec
 
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "OrderId" $ do
     it "should success to create order ID hoge" $ do
       let Right id = OrderId.create "hoge"

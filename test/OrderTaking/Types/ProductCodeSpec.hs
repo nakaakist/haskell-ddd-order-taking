@@ -1,10 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+module OrderTaking.Types.ProductCodeSpec (spec) where
+
 import OrderTaking.Types.ProductCode as ProductCode
 import Test.Hspec
 
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "ProductCode" $ do
     it "should success to create widget code W1234" $ do
       let Right code = ProductCode.create "W1234"
