@@ -9,8 +9,8 @@ where
 
 import Data.Text as T (Text, head)
 import OrderTaking.Shared (DomainError)
-import OrderTaking.Types.GizmoCode as GizmoCode
-import OrderTaking.Types.WidgetCode as WidgetCode
+import qualified OrderTaking.Types.GizmoCode as GizmoCode
+import qualified OrderTaking.Types.WidgetCode as WidgetCode
 
 data ProductCode = Widget WidgetCode.WidgetCode | Gizmo GizmoCode.GizmoCode deriving (Show, Eq)
 

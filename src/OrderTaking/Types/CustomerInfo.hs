@@ -3,8 +3,8 @@ module OrderTaking.Types.CustomerInfo
   )
 where
 
-import OrderTaking.Types.EmailAddress as EmailAddress
-import OrderTaking.Types.PersonalName as PersonalName
+import qualified OrderTaking.Types.EmailAddress as EmailAddress
+import qualified OrderTaking.Types.PersonalName as PersonalName
 
 data CustomerInfo = CustomerInfo
   { personalName :: PersonalName.PersonalName,
