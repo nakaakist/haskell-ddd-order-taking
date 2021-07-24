@@ -43,6 +43,7 @@ library
       OrderTaking.Types.ProductCode.GizmoCode
       OrderTaking.Types.ProductCode.ProductCode
       OrderTaking.Types.ProductCode.WidgetCode
+      OrderTaking.Workflows.PlaceOrder.ValidateOrder
   other-modules:
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
@@ -55,6 +56,7 @@ library
     , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
     , text >=1.2.4.1
+    , transformers >=0.5.6.2
   default-language: Haskell2010
 
 executable haskell-ddd-order-taking-exe
@@ -73,6 +75,7 @@ executable haskell-ddd-order-taking-exe
     , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
     , text >=1.2.4.1
+    , transformers >=0.5.6.2
   default-language: Haskell2010
 
 test-suite haskell-ddd-order-taking-test
@@ -87,6 +90,7 @@ test-suite haskell-ddd-order-taking-test
       OrderTaking.Types.OrderQuantitySpec
       OrderTaking.Types.PriceSpec
       OrderTaking.Types.ProductCodeSpec
+      OrderTaking.Workflows.PlaceOrder.ValidateOrderSpec
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
       test
@@ -100,5 +104,6 @@ test-suite haskell-ddd-order-taking-test
     , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
     , text >=1.2.4.1
+    , transformers >=0.5.6.2
   default-language: Haskell2010
   build-tool-depends: hspec-discover:hspec-discover == 2.*

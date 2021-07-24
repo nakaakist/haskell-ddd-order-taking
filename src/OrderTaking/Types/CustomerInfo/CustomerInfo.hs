@@ -1,5 +1,5 @@
 module OrderTaking.Types.CustomerInfo.CustomerInfo
-  ( CustomerInfo,
+  ( CustomerInfo (..),
   )
 where
 

@@ -18,3 +18,5 @@ I used the following repositories and websites as references.
   - web app by Scotty
 - https://taylor.fausak.me/2018/03/16/record-fields-break-smart-constructors/
   - smart constructors in Haskell
+- https://odone.io/posts/2019-09-02-merging-io-and-either-into-one-monad.html
+  - EitherIO monad (= AsyncResult monad in the book)
