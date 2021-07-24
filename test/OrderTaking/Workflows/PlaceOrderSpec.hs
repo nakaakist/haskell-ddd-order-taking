@@ -1,12 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Workflows.PlaceOrder.ValidateOrderSpec (spec) where
+module OrderTaking.Workflows.PlaceOrderSpec (spec) where
 
-import Data.Either (isRight)
+import Data.Either (fromRight, isRight)
 import OrderTaking.Shared.DomainError (DomainError)
 import OrderTaking.Shared.EitherIO (EitherIO, fromList, liftEither, liftIO, runEitherIO)
 import qualified OrderTaking.Types.Address.Address as Address
+import qualified OrderTaking.Types.BillingAmount as BillingAmount
+import qualified OrderTaking.Types.Price as Price
 import qualified OrderTaking.Types.ProductCode.ProductCode as ProductCode
+import qualified OrderTaking.Workflows.PlaceOrder.PriceOrder as PriceOrder
 import qualified OrderTaking.Workflows.PlaceOrder.ValidateOrder as ValidateOrder
 import Test.Hspec
 
@@ -19,6 +22,9 @@ mockCheckAddress :: Exists -> ValidateOrder.CheckAddressExists
 mockCheckAddress e address
   | e = return address
   | otherwise = liftEither $ Left "address does not exist"
+
+mockGetProductPrice :: Double -> PriceOrder.GetProductPrice
+mockGetProductPrice p _ = Price.create p
 
 unvalidatedCustomerInfo =
   ValidateOrder.UnvalidatedCustomerInfo
@@ -50,7 +56,7 @@ unvalidatedOrder =
       ValidateOrder.unvalidatedCustomerInfo = unvalidatedCustomerInfo,
       ValidateOrder.unvalidatedShippingAddress = unvalidatedAddress,
       ValidateOrder.unvalidatedBillingAddress = unvalidatedAddress,
-      ValidateOrder.unvalidatedOrderLines = [unvalidatedOrderLine]
+      ValidateOrder.unvalidatedOrderLines = replicate 2 unvalidatedOrderLine
     }
 
 spec :: Spec
@@ -85,3 +91,16 @@ spec = do
               }
       let result = ValidateOrder.validateOrder (mockCheckProductCode True) (mockCheckAddress True) invalidOrder
       isRight <$> runEitherIO result `shouldReturn` False
+
+  describe "PriceOrder" $ do
+    let itemPrice = 10.0
+    let validationResult = ValidateOrder.validateOrder (mockCheckProductCode True) (mockCheckAddress True) unvalidatedOrder
+    let priceResult = validationResult >>= PriceOrder.priceOrder (mockGetProductPrice itemPrice)
+
+    it "should calculate line price correctly" $ do
+      let orderLines = PriceOrder.orderLines <$> priceResult
+      let orderLine1 = head <$> orderLines
+      (Price.value . PriceOrder.linePrice . fromRight undefined <$> runEitherIO orderLine1) `shouldReturn` 100.0
+
+    it "should calculate total amount correctly" $ do
+      (BillingAmount.value . PriceOrder.amountToBill . fromRight undefined <$> runEitherIO priceResult) `shouldReturn` 200.0

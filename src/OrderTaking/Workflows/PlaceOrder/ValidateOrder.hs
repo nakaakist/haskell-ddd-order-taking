@@ -5,6 +5,8 @@ module OrderTaking.Workflows.PlaceOrder.ValidateOrder
     UnvalidatedAddress (..),
     UnvalidatedOrderLine (..),
     UnvalidatedOrder (..),
+    ValidatedOrder (..),
+    ValidatedOrderLine (..),
     CheckProductCodeExists,
     CheckAddressExists,
     validateOrder,

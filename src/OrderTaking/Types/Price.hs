@@ -1,8 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.Price
-  ( create,
+  ( Price (..),
+    create,
     value,
+    multiply,
   )
 where
 
@@ -16,3 +18,6 @@ create p = PricePrivate <$> createNumInRange p "price" 0.0 1000.0
 
 value :: Price -> Double
 value (PricePrivate p) = p
+
+multiply :: Double -> Price -> Either DomainError Price
+multiply x p = create $ value p * x

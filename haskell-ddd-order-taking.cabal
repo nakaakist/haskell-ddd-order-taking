@@ -45,6 +45,7 @@ library
       OrderTaking.Types.ProductCode.GizmoCode
       OrderTaking.Types.ProductCode.ProductCode
       OrderTaking.Types.ProductCode.WidgetCode
+      OrderTaking.Workflows.PlaceOrder.PriceOrder
       OrderTaking.Workflows.PlaceOrder.ValidateOrder
   other-modules:
       Paths_haskell_ddd_order_taking
@@ -92,7 +93,7 @@ test-suite haskell-ddd-order-taking-test
       OrderTaking.Types.OrderQuantitySpec
       OrderTaking.Types.PriceSpec
       OrderTaking.Types.ProductCodeSpec
-      OrderTaking.Workflows.PlaceOrder.ValidateOrderSpec
+      OrderTaking.Workflows.PlaceOrderSpec
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
       test
