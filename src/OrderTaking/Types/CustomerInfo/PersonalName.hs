@@ -9,7 +9,8 @@ module OrderTaking.Types.CustomerInfo.PersonalName
 where
 
 import Data.Text (Text)
-import OrderTaking.Shared (DomainError, createStringInLengthRange)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions (createStringInLengthRange)
 
 data PersonalName = PersonalNamePrivate
   { firstNamePrivate :: Text,

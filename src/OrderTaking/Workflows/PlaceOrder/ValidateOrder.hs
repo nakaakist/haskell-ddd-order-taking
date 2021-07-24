@@ -12,7 +12,8 @@ module OrderTaking.Workflows.PlaceOrder.ValidateOrder
 where
 
 import Data.Text
-import OrderTaking.Shared (DomainError, EitherIO, fromList, liftEither, liftIO, runEitherIO)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.EitherIO (EitherIO, fromList, liftEither, liftIO, runEitherIO)
 import qualified OrderTaking.Types.Address.Address as Address
 import qualified OrderTaking.Types.CustomerInfo.CustomerInfo as CustomerInfo
 import qualified OrderTaking.Types.CustomerInfo.EmailAddress as EmailAddress

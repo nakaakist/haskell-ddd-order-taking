@@ -6,7 +6,8 @@ module OrderTaking.Types.BillingAmount
   )
 where
 
-import OrderTaking.Shared (DomainError, createNumInRange)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions (createNumInRange)
 
 newtype BillingAmount = BillingAmountPrivate Double deriving (Show, Eq)
 

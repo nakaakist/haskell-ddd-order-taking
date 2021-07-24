@@ -1,12 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Shared
-  ( DomainError,
-    EitherIO (..),
-    liftEither,
-    fromList,
-    liftIO,
-    createStringInLengthRange,
+module OrderTaking.Shared.UtilFunctions
+  ( createStringInLengthRange,
     createMaybeStringInLengthRange,
     valueFromMaybeString,
     createStringMatchedToPattern,
@@ -14,48 +9,9 @@ module OrderTaking.Shared
   )
 where
 
-import Control.Applicative (Applicative (liftA2))
-import Data.Either (lefts)
 import Data.Text as T (Text, length, pack)
+import OrderTaking.Shared.DomainError (DomainError)
 import Text.Regex.TDFA ((=~))
-
-type DomainError = Text
-
--- EitherIO type
-newtype EitherIO e a = EitherIO {runEitherIO :: IO (Either e a)}
-
-instance Functor (EitherIO e) where
-  fmap f = EitherIO . fmap (fmap f) . runEitherIO
-
-instance Applicative (EitherIO e) where
-  pure = EitherIO . return . Right
-  fg <*> f = EitherIO $ liftA2 (<*>) (runEitherIO fg) (runEitherIO f)
-
-instance Monad (EitherIO e) where
-  m >>= mg = EitherIO $ runEitherIO m >>= either (pure . Left) (runEitherIO . mg)
-
-liftEither :: Either e a -> EitherIO e a
-liftEither = EitherIO . pure
-
-liftIO :: IO a -> EitherIO e a
-liftIO = EitherIO . fmap Right
-
-fromList' :: [EitherIO e a] -> IO (Either e [a])
-fromList' [] = return $ Right []
-fromList' (x : xs) = do
-  x' <- runEitherIO x
-  case x' of
-    (Left err) -> return $ Left err
-    (Right x'') -> do
-      xs' <- fromList' xs
-      case xs' of
-        (Left errs) -> return $ Left errs
-        (Right xs'') -> return $ Right (x'' : xs'')
-
-fromList :: [EitherIO e a] -> EitherIO e [a]
-fromList = EitherIO . fromList'
-
--- util functions
 
 type FieldName = Text
 

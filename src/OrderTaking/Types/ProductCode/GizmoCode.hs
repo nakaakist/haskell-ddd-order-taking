@@ -8,7 +8,8 @@ module OrderTaking.Types.ProductCode.GizmoCode
 where
 
 import Data.Text (Text)
-import OrderTaking.Shared (DomainError, createStringMatchedToPattern)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions (createStringMatchedToPattern)
 
 newtype GizmoCode = GizmoCodePrivate Text deriving (Show, Eq)
 

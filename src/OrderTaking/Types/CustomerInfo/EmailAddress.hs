@@ -10,7 +10,7 @@ where
 import Data.Either (fromLeft, isRight)
 import Data.Text (Text, pack)
 import Data.Text.Encoding (encodeUtf8)
-import OrderTaking.Shared (DomainError)
+import OrderTaking.Shared.DomainError (DomainError)
 import Text.Email.Validate (validate)
 
 newtype EmailAddress = EmailAddressPrivate Text deriving (Show, Eq)

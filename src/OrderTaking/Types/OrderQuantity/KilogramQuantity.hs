@@ -7,7 +7,8 @@ module OrderTaking.Types.OrderQuantity.KilogramQuantity
   )
 where
 
-import OrderTaking.Shared (DomainError, createNumInRange)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions (createNumInRange)
 
 newtype KilogramQuantity = KilogramQuantityPrivate Double deriving (Show, Eq)
 

@@ -8,7 +8,7 @@ module OrderTaking.Types.OrderQuantity.OrderQuantity
 where
 
 import Data.Text (Text)
-import OrderTaking.Shared (DomainError)
+import OrderTaking.Shared.DomainError (DomainError)
 import qualified OrderTaking.Types.OrderQuantity.KilogramQuantity as KilogramQuantity
 import qualified OrderTaking.Types.OrderQuantity.UnitQuantity as UnitQuantity
 import qualified OrderTaking.Types.ProductCode.ProductCode as ProductCode

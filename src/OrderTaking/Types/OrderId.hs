@@ -8,7 +8,8 @@ module OrderTaking.Types.OrderId
 where
 
 import Data.Text (Text)
-import OrderTaking.Shared (DomainError, createStringInLengthRange)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions (createStringInLengthRange)
 
 newtype OrderId = OrderIdPrivate Text deriving (Show, Eq)
 

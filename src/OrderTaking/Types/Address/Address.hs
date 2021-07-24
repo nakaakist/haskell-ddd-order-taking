@@ -9,9 +9,9 @@ module OrderTaking.Types.Address.Address
 where
 
 import Data.Text (Text)
-import OrderTaking.Shared
-  ( DomainError,
-    createMaybeStringInLengthRange,
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions
+  ( createMaybeStringInLengthRange,
     createStringInLengthRange,
     valueFromMaybeString,
   )

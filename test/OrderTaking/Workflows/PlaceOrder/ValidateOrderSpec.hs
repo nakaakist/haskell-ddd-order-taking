@@ -3,7 +3,8 @@
 module OrderTaking.Workflows.PlaceOrder.ValidateOrderSpec (spec) where
 
 import Data.Either (isRight)
-import OrderTaking.Shared (DomainError, EitherIO, fromList, liftEither, liftIO, runEitherIO)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.EitherIO (EitherIO, fromList, liftEither, liftIO, runEitherIO)
 import qualified OrderTaking.Types.Address.Address as Address
 import qualified OrderTaking.Types.ProductCode.ProductCode as ProductCode
 import qualified OrderTaking.Workflows.PlaceOrder.ValidateOrder as ValidateOrder

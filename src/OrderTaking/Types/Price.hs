@@ -6,7 +6,8 @@ module OrderTaking.Types.Price
   )
 where
 
-import OrderTaking.Shared (DomainError, createNumInRange)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions (createNumInRange)
 
 newtype Price = PricePrivate Double deriving (Show, Eq)
 

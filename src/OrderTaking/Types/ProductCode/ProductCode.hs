@@ -8,7 +8,7 @@ module OrderTaking.Types.ProductCode.ProductCode
 where
 
 import Data.Text as T (Text, head)
-import OrderTaking.Shared (DomainError)
+import OrderTaking.Shared.DomainError (DomainError)
 import qualified OrderTaking.Types.ProductCode.GizmoCode as GizmoCode
 import qualified OrderTaking.Types.ProductCode.WidgetCode as WidgetCode
 

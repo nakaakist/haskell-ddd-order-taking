@@ -7,7 +7,8 @@ module OrderTaking.Types.OrderQuantity.UnitQuantity
   )
 where
 
-import OrderTaking.Shared (DomainError, createNumInRange)
+import OrderTaking.Shared.DomainError (DomainError)
+import OrderTaking.Shared.UtilFunctions (createNumInRange)
 
 newtype UnitQuantity = UnitQuantityPrivate Int deriving (Show, Eq)
 
