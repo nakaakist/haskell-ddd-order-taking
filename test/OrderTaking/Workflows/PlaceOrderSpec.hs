@@ -1,14 +1,20 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Workflows.PlaceOrderSpec
   ( spec
   ) where
 
+import           Control.Lens                   ( (.~)
+                                                , (^.)
+                                                )
 import           Data.Either                    ( fromRight
                                                 , isRight
                                                 )
+import           Data.Function
 import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
                                                 , fromList
@@ -43,32 +49,32 @@ mockGetProductPrice :: Double -> PriceOrder.GetProductPrice
 mockGetProductPrice p _ = Price.create p
 
 unvalidatedCustomerInfo = ValidateOrder.UnvalidatedCustomerInfo
-  { ValidateOrder.firstName    = "nariyuki"
-  , ValidateOrder.lastName     = "saito"
-  , ValidateOrder.emailAddress = "toshincompos@gmail.com"
+  { firstName    = "nariyuki"
+  , lastName     = "saito"
+  , emailAddress = "toshincompos@gmail.com"
   }
 
 unvalidatedAddress = ValidateOrder.UnvalidatedAddress
-  { ValidateOrder.addressLine1 = "hoge street"
-  , ValidateOrder.addressLine2 = ""
-  , ValidateOrder.addressLine3 = ""
-  , ValidateOrder.addressLine4 = ""
-  , ValidateOrder.city         = "Maebashi"
-  , ValidateOrder.zipCode      = "12345"
+  { addressLine1 = "hoge street"
+  , addressLine2 = ""
+  , addressLine3 = ""
+  , addressLine4 = ""
+  , city         = "Maebashi"
+  , zipCode      = "12345"
   }
 
 unvalidatedOrderLine = ValidateOrder.UnvalidatedOrderLine
-  { ValidateOrder.orderLineId = "1"
-  , ValidateOrder.productCode = "W1234"
-  , ValidateOrder.quantity    = 10.0
+  { orderLineId = "1"
+  , productCode = "W1234"
+  , quantity    = 10.0
   }
 
 unvalidatedOrder = ValidateOrder.UnvalidatedOrder
-  { ValidateOrder.orderId         = "hoge"
-  , ValidateOrder.customerInfo    = unvalidatedCustomerInfo
-  , ValidateOrder.shippingAddress = unvalidatedAddress
-  , ValidateOrder.billingAddress  = unvalidatedAddress
-  , ValidateOrder.orderLines      = replicate 2 unvalidatedOrderLine
+  { orderId         = "hoge"
+  , customerInfo    = unvalidatedCustomerInfo
+  , shippingAddress = unvalidatedAddress
+  , billingAddress  = unvalidatedAddress
+  , orderLines      = replicate 2 unvalidatedOrderLine
   }
 
 spec :: Spec
@@ -93,18 +99,8 @@ spec = do
       isRight <$> runEitherIO result `shouldReturn` False
 
     it "should block order if parameter format in order line is invalid" $ do
-      let invalidOrderLine = ValidateOrder.UnvalidatedOrderLine
-            { ValidateOrder.orderLineId = "1"
-            , ValidateOrder.productCode = "hoge" -- invalid code
-            , ValidateOrder.quantity    = 10.0
-            }
-      let invalidOrder = ValidateOrder.UnvalidatedOrder
-            { ValidateOrder.orderId         = "hoge"
-            , ValidateOrder.customerInfo    = unvalidatedCustomerInfo
-            , ValidateOrder.shippingAddress = unvalidatedAddress
-            , ValidateOrder.billingAddress  = unvalidatedAddress
-            , ValidateOrder.orderLines      = [invalidOrderLine]
-            }
+      let invalidOrderLine = unvalidatedOrderLine & #productCode .~ "hoge"
+      let invalidOrder = unvalidatedOrder & #orderLines .~ [invalidOrderLine]
       let result = ValidateOrder.validateOrder (mockCheckProductCode True)
                                                (mockCheckAddress True)
                                                invalidOrder

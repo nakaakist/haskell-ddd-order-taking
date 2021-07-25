@@ -148,19 +148,17 @@ validateCustomerInfo
   :: UnvalidatedCustomerInfo -> Either DomainError CustomerInfo.CustomerInfo
 validateCustomerInfo input = do
   -- validate name
-  let nameParams = PersonalName.Params
-        { PersonalName.firstName = input ^. #firstName
-        , PersonalName.lastName  = input ^. #lastName
-        }
+  let nameParams = PersonalName.Params { firstName = input ^. #firstName
+                                       , lastName  = input ^. #lastName
+                                       }
   validatedName         <- PersonalName.create nameParams
 
   -- validate email address
   validatedEmailAddress <- EmailAddress.create (input ^. #emailAddress)
   return
-    (CustomerInfo.CustomerInfo
-      { CustomerInfo.personalName = validatedName
-      , CustomerInfo.emailAddress = validatedEmailAddress
-      }
+    (CustomerInfo.CustomerInfo { personalName = validatedName
+                               , emailAddress = validatedEmailAddress
+                               }
     )
 
 validateAddress
@@ -169,12 +167,12 @@ validateAddress
   -> EitherIO DomainError Address.Address
 validateAddress checkAddressExists input = do
   -- validate address format
-  let params = Address.Params { Address.addressLine1 = input ^. #addressLine1
-                              , Address.addressLine2 = input ^. #addressLine2
-                              , Address.addressLine3 = input ^. #addressLine3
-                              , Address.addressLine4 = input ^. #addressLine4
-                              , Address.city         = input ^. #city
-                              , Address.zipCode      = input ^. #zipCode
+  let params = Address.Params { addressLine1 = input ^. #addressLine1
+                              , addressLine2 = input ^. #addressLine2
+                              , addressLine3 = input ^. #addressLine3
+                              , addressLine4 = input ^. #addressLine4
+                              , city         = input ^. #city
+                              , zipCode      = input ^. #zipCode
                               }
   let formatCheckedAddress = Address.create params
 
