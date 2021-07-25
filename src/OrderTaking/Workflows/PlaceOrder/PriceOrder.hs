@@ -47,7 +47,7 @@ data PricedOrderLine = PricedOrderLine
   , quantity    :: OrderQuantity.OrderQuantity
   , linePrice   :: Price.Price
   }
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic)
 
 data PricedOrder = PricedOrder
   { orderId         :: OrderId.OrderId
@@ -57,7 +57,7 @@ data PricedOrder = PricedOrder
   , amountToBill    :: BillingAmount.BillingAmount
   , orderLines      :: [PricedOrderLine]
   }
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic)
 
 -- dependency types
 

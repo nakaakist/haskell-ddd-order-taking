@@ -1,7 +1,14 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 module OrderTaking.Types.CustomerInfo.CustomerInfo
   ( CustomerInfo(..)
   ) where
 
+import           GHC.Generics                   ( Generic )
 import qualified OrderTaking.Types.CustomerInfo.EmailAddress
                                                as EmailAddress
 import qualified OrderTaking.Types.CustomerInfo.PersonalName
@@ -12,4 +19,4 @@ data CustomerInfo = CustomerInfo
   { personalName :: PersonalName.PersonalName
   , emailAddress :: EmailAddress.EmailAddress
   }
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic)

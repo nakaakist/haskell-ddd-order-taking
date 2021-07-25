@@ -1,3 +1,7 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.PdfAttachment
@@ -6,9 +10,12 @@ module OrderTaking.Types.PdfAttachment
 
 import           Data.ByteString                ( ByteString )
 import           Data.Text                      ( Text )
+import           GHC.Generics                   ( Generic )
 
 
 data PdfAttachment = PdfAttachment
   { name  :: Text
   , bytes :: ByteString
   }
+  deriving (Show, Eq, Generic)
+

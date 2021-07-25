@@ -1,3 +1,7 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.CustomerInfo.PersonalName
@@ -8,6 +12,7 @@ module OrderTaking.Types.CustomerInfo.PersonalName
   ) where
 
 import           Data.Text                      ( Text )
+import           GHC.Generics                   ( Generic )
 import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.UtilFunctions
                                                 ( createStringInLengthRange )
@@ -17,7 +22,7 @@ data PersonalName = PersonalNamePrivate
   { firstNamePrivate :: Text
   , lastNamePrivate  :: Text
   }
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic)
 
 data Params = Params
   { firstName :: Text
