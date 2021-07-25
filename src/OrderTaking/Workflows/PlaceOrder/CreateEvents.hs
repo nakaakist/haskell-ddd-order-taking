@@ -8,12 +8,8 @@ module OrderTaking.Workflows.PlaceOrder.CreateEvents where
 
 import           Control.Lens                   ( (^.) )
 import           Data.Generics.Labels           ( )
-import           Data.Text                      ( Text )
-import           GHC.Generics                   ( Generic )
 import qualified OrderTaking.Types.BillingAmount
                                                as BillingAmount
-import qualified OrderTaking.Types.CustomerInfo.EmailAddress
-                                               as EmailAddress
 import qualified OrderTaking.Workflows.PlaceOrder.Events
                                                as Events
 import qualified OrderTaking.Workflows.PlaceOrder.PriceOrder

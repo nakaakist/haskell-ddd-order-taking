@@ -1,65 +1,57 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.AddressSpec
   ( spec
   ) where
 
-import           Data.Text                      ( Text )
+import           Control.Lens                   ( (.~) )
+import           Data.Function                  ( (&) )
+import           Data.Generics.Labels           ( )
 import qualified OrderTaking.Types.Address.Address
                                                as Address
-import qualified OrderTaking.Types.Address.ZipCode
-                                               as ZipCode
 import           Test.Hspec
 
-validAddressLine = "hoge 1-1-1" :: Text
-
-validCity = "Maebashi" :: Text
-
-validZipCode = "12345" :: Text
 
 spec :: Spec
 spec = do
+  let validAddressLine = "hoge 1-1-1"
+  let validCity        = "Maebashi"
+  let validZipCode     = "12345"
+  let addressParams = Address.Params { addressLine1 = validAddressLine
+                                     , addressLine2 = validAddressLine
+                                     , addressLine3 = validAddressLine
+                                     , addressLine4 = validAddressLine
+                                     , city         = validCity
+                                     , zipCode      = validZipCode
+                                     }
+
   describe "Address" $ do
     it "should success to create valid address" $ do
-      let params = Address.Params { Address.addressLine1 = validAddressLine
-                                  , Address.addressLine2 = validAddressLine
-                                  , Address.addressLine3 = validAddressLine
-                                  , Address.addressLine4 = validAddressLine
-                                  , Address.city         = validCity
-                                  , Address.zipCode      = validZipCode
-                                  }
-      let Right address = Address.create params
-      Address.value address `shouldBe` params
+      let Right address = Address.create addressParams
+      Address.value address `shouldBe` addressParams
 
     it "should success to create address with only address line 1" $ do
-      let params = Address.Params { Address.addressLine1 = validAddressLine
-                                  , Address.addressLine2 = ""
-                                  , Address.addressLine3 = ""
-                                  , Address.addressLine4 = ""
-                                  , Address.city         = validCity
-                                  , Address.zipCode      = validZipCode
-                                  }
-      let Right address = Address.create params
-      Address.value address `shouldBe` params
+      let addressParamsWithOnlyLine1 =
+            addressParams
+              &  #addressLine2
+              .~ ""
+              &  #addressLine3
+              .~ ""
+              &  #addressLine4
+              .~ ""
+      let Right address = Address.create addressParamsWithOnlyLine1
+      Address.value address `shouldBe` addressParamsWithOnlyLine1
 
     it "should fail to create address with zip code hoge" $ do
-      let params = createParamsWithZipCode "hoge"
-      Address.create params
+      let invalidAddressParams = addressParams & #zipCode .~ "hoge"
+      Address.create invalidAddressParams
         `shouldBe` Left "zip code hoge is invalid. must be 5 digits number"
 
     it "should fail to create 1234" $ do
-      let params = createParamsWithZipCode "1234"
-      Address.create params
+      let invalidAddressParams = addressParams & #zipCode .~ "1234"
+      Address.create invalidAddressParams
         `shouldBe` Left "zip code 1234 is invalid. must be 5 digits number"
-
--- helper functions
-
-createParamsWithZipCode :: Text -> Address.Params
-createParamsWithZipCode c = Address.Params
-  { Address.addressLine1 = validAddressLine
-  , Address.addressLine2 = validAddressLine
-  , Address.addressLine3 = validAddressLine
-  , Address.addressLine4 = validAddressLine
-  , Address.city         = validCity
-  , Address.zipCode      = c
-  }

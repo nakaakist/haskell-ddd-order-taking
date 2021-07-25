@@ -24,8 +24,6 @@ import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
                                                 , fromList
                                                 , liftEither
-                                                , liftIO
-                                                , runEitherIO
                                                 )
 import qualified OrderTaking.Types.Address.Address
                                                as Address

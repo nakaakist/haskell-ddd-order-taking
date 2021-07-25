@@ -8,27 +8,17 @@ module OrderTaking.Workflows.PlaceOrderSpec
   ( spec
   ) where
 
-import           Control.Lens                   ( (.~)
-                                                , (^.)
-                                                )
+import           Control.Lens                   ( (.~) )
 import           Data.Either                    ( fromRight
                                                 , isRight
                                                 )
-import           Data.Function
-import           OrderTaking.Shared.DomainError ( DomainError )
-import           OrderTaking.Shared.EitherIO    ( EitherIO
-                                                , fromList
-                                                , liftEither
-                                                , liftIO
+import           Data.Function                  ( (&) )
+import           OrderTaking.Shared.EitherIO    ( liftEither
                                                 , runEitherIO
                                                 )
-import qualified OrderTaking.Types.Address.Address
-                                               as Address
 import qualified OrderTaking.Types.BillingAmount
                                                as BillingAmount
 import qualified OrderTaking.Types.Price       as Price
-import qualified OrderTaking.Types.ProductCode.ProductCode
-                                               as ProductCode
 import qualified OrderTaking.Workflows.PlaceOrder.PriceOrder
                                                as PriceOrder
 import qualified OrderTaking.Workflows.PlaceOrder.ValidateOrder
@@ -48,37 +38,37 @@ mockCheckAddress e address
 mockGetProductPrice :: Double -> PriceOrder.GetProductPrice
 mockGetProductPrice p _ = Price.create p
 
-unvalidatedCustomerInfo = ValidateOrder.UnvalidatedCustomerInfo
-  { firstName    = "nariyuki"
-  , lastName     = "saito"
-  , emailAddress = "toshincompos@gmail.com"
-  }
-
-unvalidatedAddress = ValidateOrder.UnvalidatedAddress
-  { addressLine1 = "hoge street"
-  , addressLine2 = ""
-  , addressLine3 = ""
-  , addressLine4 = ""
-  , city         = "Maebashi"
-  , zipCode      = "12345"
-  }
-
-unvalidatedOrderLine = ValidateOrder.UnvalidatedOrderLine
-  { orderLineId = "1"
-  , productCode = "W1234"
-  , quantity    = 10.0
-  }
-
-unvalidatedOrder = ValidateOrder.UnvalidatedOrder
-  { orderId         = "hoge"
-  , customerInfo    = unvalidatedCustomerInfo
-  , shippingAddress = unvalidatedAddress
-  , billingAddress  = unvalidatedAddress
-  , orderLines      = replicate 2 unvalidatedOrderLine
-  }
-
 spec :: Spec
 spec = do
+  let unvalidatedCustomerInfo = ValidateOrder.UnvalidatedCustomerInfo
+        { firstName    = "nariyuki"
+        , lastName     = "saito"
+        , emailAddress = "toshincompos@gmail.com"
+        }
+
+  let unvalidatedAddress = ValidateOrder.UnvalidatedAddress
+        { addressLine1 = "hoge street"
+        , addressLine2 = ""
+        , addressLine3 = ""
+        , addressLine4 = ""
+        , city         = "Maebashi"
+        , zipCode      = "12345"
+        }
+
+  let unvalidatedOrderLine = ValidateOrder.UnvalidatedOrderLine
+        { orderLineId = "1"
+        , productCode = "W1234"
+        , quantity    = 10.0
+        }
+
+  let unvalidatedOrder = ValidateOrder.UnvalidatedOrder
+        { orderId         = "hoge"
+        , customerInfo    = unvalidatedCustomerInfo
+        , shippingAddress = unvalidatedAddress
+        , billingAddress  = unvalidatedAddress
+        , orderLines      = replicate 2 unvalidatedOrderLine
+        }
+
   describe "ValidateOrder" $ do
     it "should pass valid order" $ do
       let result = ValidateOrder.validateOrder (mockCheckProductCode True)

@@ -15,7 +15,7 @@ import           OrderTaking.Shared.UtilFunctions
 newtype OrderId = OrderIdPrivate Text deriving (Show, Eq)
 
 create :: Text -> Either DomainError OrderId
-create id = OrderIdPrivate <$> createStringInLengthRange id "order ID" 0 50
+create i = OrderIdPrivate <$> createStringInLengthRange i "order ID" 0 50
 
 value :: OrderId -> Text
-value (OrderIdPrivate id) = id
+value (OrderIdPrivate i) = i

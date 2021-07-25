@@ -11,5 +11,5 @@ spec :: Spec
 spec = do
   describe "OrderLineId" $ do
     it "should success to create order line ID hoge" $ do
-      let Right id = OrderLineId.create "hoge"
-      OrderLineId.value id `shouldBe` "hoge"
+      let Right orderLineId = OrderLineId.create "hoge"
+      OrderLineId.value orderLineId `shouldBe` "hoge"

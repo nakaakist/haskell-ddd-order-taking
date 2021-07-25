@@ -22,13 +22,13 @@ data PersonalName = PersonalNamePrivate
   { firstNamePrivate :: Text
   , lastNamePrivate  :: Text
   }
-  deriving (Show, Eq, Generic)
+  deriving (Show, Eq)
 
 data Params = Params
   { firstName :: Text
   , lastName  :: Text
   }
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic)
 
 create :: Params -> Either DomainError PersonalName
 create Params { firstName = f, lastName = l } = do

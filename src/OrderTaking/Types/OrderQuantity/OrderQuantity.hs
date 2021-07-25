@@ -6,7 +6,6 @@ module OrderTaking.Types.OrderQuantity.OrderQuantity
   , value
   ) where
 
-import           Data.Text                      ( Text )
 import           OrderTaking.Shared.DomainError ( DomainError )
 import qualified OrderTaking.Types.OrderQuantity.KilogramQuantity
                                                as KilogramQuantity

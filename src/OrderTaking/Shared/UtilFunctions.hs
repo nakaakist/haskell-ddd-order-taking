@@ -21,8 +21,8 @@ type FieldName = Text
 
 createStringInLengthRange
   :: Text -> FieldName -> Int -> Int -> Either DomainError Text
-createStringInLengthRange text fieldName min max
-  | len >= min && len <= max
+createStringInLengthRange text fieldName minLen maxLen
+  | len >= minLen && len <= maxLen
   = Right text
   | otherwise
   = Left
@@ -30,17 +30,17 @@ createStringInLengthRange text fieldName min max
     <> " "
     <> text
     <> " is invalid. length must be between "
-    <> toText min
+    <> toText minLen
     <> " and "
-    <> toText max
+    <> toText maxLen
   where len = T.length text
 
 createMaybeStringInLengthRange
   :: Text -> FieldName -> Int -> Int -> Either DomainError (Maybe Text)
-createMaybeStringInLengthRange text fieldName min max
+createMaybeStringInLengthRange text fieldName minLen maxLen
   | len == 0
   = Right Nothing
-  | len >= min && len <= max
+  | len >= minLen && len <= maxLen
   = Right $ Just text
   | otherwise
   = Left
@@ -48,9 +48,9 @@ createMaybeStringInLengthRange text fieldName min max
     <> " "
     <> text
     <> " is invalid. length must be 0 or between "
-    <> toText min
+    <> toText minLen
     <> " and "
-    <> toText max
+    <> toText maxLen
   where len = T.length text
 
 valueFromMaybeString :: Maybe Text -> Text
@@ -80,8 +80,8 @@ createStringMatchedToPattern text fieldName pattern patternDescription
 
 createNumInRange
   :: (Show a, Num a, Ord a) => a -> FieldName -> a -> a -> Either DomainError a
-createNumInRange num fieldName min max
-  | num >= min && num <= max
+createNumInRange num fieldName minVal maxVal
+  | num >= minVal && num <= maxVal
   = Right num
   | otherwise
   = Left
@@ -89,9 +89,9 @@ createNumInRange num fieldName min max
     <> " "
     <> toText num
     <> " is invalid. must be between "
-    <> toText min
+    <> toText minVal
     <> " and "
-    <> toText max
+    <> toText maxVal
 
 toText :: (Show a) => a -> Text
 toText = pack . show

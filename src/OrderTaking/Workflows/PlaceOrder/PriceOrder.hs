@@ -13,14 +13,11 @@ module OrderTaking.Workflows.PlaceOrder.PriceOrder
 
 import           Control.Lens                   ( (^.) )
 import           Data.Generics.Labels           ( )
-import           Data.Text                      ( Text )
 import           GHC.Generics                   ( Generic )
 import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
                                                 , fromList
                                                 , liftEither
-                                                , liftIO
-                                                , runEitherIO
                                                 )
 import qualified OrderTaking.Types.Address.Address
                                                as Address

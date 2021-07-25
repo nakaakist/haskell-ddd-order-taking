@@ -6,7 +6,7 @@
 
 module OrderTaking.Workflows.PlaceOrder.Events
   ( PlaceOrderEvents(..)
-  , OrderPlaced(..)
+  , OrderPlaced
   , OrderAcknowledgmentSent(..)
   , BillableOrderPlaced(..)
   ) where
