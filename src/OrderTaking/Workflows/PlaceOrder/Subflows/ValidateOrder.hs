@@ -4,15 +4,9 @@
 {-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Workflows.PlaceOrder.ValidateOrder
-  ( UnvalidatedCustomerInfo(..)
-  , UnvalidatedAddress(..)
-  , UnvalidatedOrderLine(..)
-  , UnvalidatedOrder(..)
-  , ValidatedOrder(..)
+module OrderTaking.Workflows.PlaceOrder.Subflows.ValidateOrder
+  ( ValidatedOrder(..)
   , ValidatedOrderLine(..)
-  , CheckProductCodeExists
-  , CheckAddressExists
   , validateOrder
   ) where
 
@@ -39,42 +33,13 @@ import qualified OrderTaking.Types.OrderQuantity.OrderQuantity
                                                as OrderQuantity
 import qualified OrderTaking.Types.ProductCode.ProductCode
                                                as ProductCode
+import qualified OrderTaking.Workflows.PlaceOrder.Types.Dependencies
+                                               as Dependencies
+import qualified OrderTaking.Workflows.PlaceOrder.Types.Inputs
+                                               as Inputs
 
 
 -- public types
-
-data UnvalidatedCustomerInfo = UnvalidatedCustomerInfo
-  { firstName    :: Text
-  , lastName     :: Text
-  , emailAddress :: Text
-  }
-  deriving (Show, Eq, Generic)
-
-data UnvalidatedAddress = UnvalidatedAddress
-  { addressLine1 :: Text
-  , addressLine2 :: Text
-  , addressLine3 :: Text
-  , addressLine4 :: Text
-  , city         :: Text
-  , zipCode      :: Text
-  }
-  deriving (Show, Eq, Generic)
-
-data UnvalidatedOrderLine = UnvalidatedOrderLine
-  { orderLineId :: Text
-  , productCode :: Text
-  , quantity    :: Double
-  }
-  deriving (Show, Eq, Generic)
-
-data UnvalidatedOrder = UnvalidatedOrder
-  { orderId         :: Text
-  , customerInfo    :: UnvalidatedCustomerInfo
-  , shippingAddress :: UnvalidatedAddress
-  , billingAddress  :: UnvalidatedAddress
-  , orderLines      :: [UnvalidatedOrderLine]
-  }
-  deriving (Show, Eq, Generic)
 
 data ValidatedOrderLine = ValidatedOrderLine
   { orderLineId :: OrderLineId.OrderLineId
@@ -92,22 +57,12 @@ data ValidatedOrder = ValidatedOrder
   }
   deriving (Show, Eq, Generic)
 
--- dependency types
-
-type CheckProductCodeExists = ProductCode.ProductCode -> Bool
-
-type CheckedAddress = Address.Address
-
-type CheckAddressExists
-  = Address.Address -> EitherIO DomainError CheckedAddress
-
-
 -- public workflow function
 
 validateOrder
-  :: CheckProductCodeExists
-  -> CheckAddressExists
-  -> UnvalidatedOrder
+  :: Dependencies.CheckProductCodeExists
+  -> Dependencies.CheckAddressExists
+  -> Inputs.UnvalidatedOrder
   -> EitherIO DomainError ValidatedOrder
 validateOrder checkProductCodeExists checkAddressExists input = do
   -- validate order ID
@@ -143,7 +98,8 @@ validateOrder checkProductCodeExists checkAddressExists input = do
 -- private functions
 
 validateCustomerInfo
-  :: UnvalidatedCustomerInfo -> Either DomainError CustomerInfo.CustomerInfo
+  :: Inputs.UnvalidatedCustomerInfo
+  -> Either DomainError CustomerInfo.CustomerInfo
 validateCustomerInfo input = do
   -- validate name
   let nameParams = PersonalName.Params { firstName = input ^. #firstName
@@ -160,8 +116,8 @@ validateCustomerInfo input = do
     )
 
 validateAddress
-  :: CheckAddressExists
-  -> UnvalidatedAddress
+  :: Dependencies.CheckAddressExists
+  -> Inputs.UnvalidatedAddress
   -> EitherIO DomainError Address.Address
 validateAddress checkAddressExists input = do
   -- validate address format
@@ -181,8 +137,8 @@ validateAddress checkAddressExists input = do
       checkAddressExists address
 
 validateOrderLine
-  :: CheckProductCodeExists
-  -> UnvalidatedOrderLine
+  :: Dependencies.CheckProductCodeExists
+  -> Inputs.UnvalidatedOrderLine
   -> Either DomainError ValidatedOrderLine
 validateOrderLine checkProductCodeExists input = do
   -- validate order line ID
@@ -198,7 +154,7 @@ validateOrderLine checkProductCodeExists input = do
   return $ ValidatedOrderLine { orderLineId, productCode, quantity }
 
 validateProductCode
-  :: CheckProductCodeExists
+  :: Dependencies.CheckProductCodeExists
   -> Text
   -> Either DomainError ProductCode.ProductCode
 validateProductCode checkProductCodeExists input = do

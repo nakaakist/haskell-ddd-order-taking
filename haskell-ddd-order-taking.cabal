@@ -45,11 +45,13 @@ library
       OrderTaking.Types.ProductCode.GizmoCode
       OrderTaking.Types.ProductCode.ProductCode
       OrderTaking.Types.ProductCode.WidgetCode
-      OrderTaking.Workflows.PlaceOrder.AcknowledgeOrder
-      OrderTaking.Workflows.PlaceOrder.CreateEvents
-      OrderTaking.Workflows.PlaceOrder.Events
-      OrderTaking.Workflows.PlaceOrder.PriceOrder
-      OrderTaking.Workflows.PlaceOrder.ValidateOrder
+      OrderTaking.Workflows.PlaceOrder.Subflows.AcknowledgeOrder
+      OrderTaking.Workflows.PlaceOrder.Subflows.CreateEvents
+      OrderTaking.Workflows.PlaceOrder.Subflows.PriceOrder
+      OrderTaking.Workflows.PlaceOrder.Subflows.ValidateOrder
+      OrderTaking.Workflows.PlaceOrder.Types.Dependencies
+      OrderTaking.Workflows.PlaceOrder.Types.Inputs
+      OrderTaking.Workflows.PlaceOrder.Types.Outputs
   other-modules:
       Paths_haskell_ddd_order_taking
   hs-source-dirs:

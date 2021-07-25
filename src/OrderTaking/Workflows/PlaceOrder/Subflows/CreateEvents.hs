@@ -4,23 +4,25 @@
 {-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Workflows.PlaceOrder.CreateEvents where
+module OrderTaking.Workflows.PlaceOrder.Subflows.CreateEvents
+  ( createEvents
+  ) where
 
 import           Control.Lens                   ( (^.) )
 import           Data.Generics.Labels           ( )
 import qualified OrderTaking.Types.BillingAmount
                                                as BillingAmount
-import qualified OrderTaking.Workflows.PlaceOrder.Events
-                                               as Events
-import qualified OrderTaking.Workflows.PlaceOrder.PriceOrder
-                                               as PriceOrder
+import qualified OrderTaking.Workflows.PlaceOrder.Types.Outputs
+                                               as Outputs
 
+
+-- public workflow function
 
 createEvents
-  :: PriceOrder.PricedOrder
-  -> Maybe Events.OrderAcknowledgmentSent
-  -> Events.PlaceOrderEvents
-createEvents input orderAcknowledgementSent = Events.PlaceOrderEvents
+  :: Outputs.PricedOrder
+  -> Maybe Outputs.OrderAcknowledgementSent
+  -> Outputs.PlaceOrderEvents
+createEvents input orderAcknowledgementSent = Outputs.PlaceOrderEvents
   { orderPlaced              = createOrderPlacedEvent input
   , billableOrderPlaced      = createBillingEvent input
   , orderAcknowledgementSent
@@ -29,15 +31,14 @@ createEvents input orderAcknowledgementSent = Events.PlaceOrderEvents
 
 -- private functions
 
-createOrderPlacedEvent :: PriceOrder.PricedOrder -> Events.OrderPlaced
+createOrderPlacedEvent :: Outputs.PricedOrder -> Outputs.OrderPlaced
 createOrderPlacedEvent input = input
 
-createBillingEvent
-  :: PriceOrder.PricedOrder -> Maybe Events.BillableOrderPlaced
+createBillingEvent :: Outputs.PricedOrder -> Maybe Outputs.BillableOrderPlaced
 createBillingEvent input =
   let shouldBeBilled = BillingAmount.shouldBeBilled $ input ^. #amountToBill
   in  if shouldBeBilled
-        then Just $ Events.BillableOrderPlaced
+        then Just $ Outputs.BillableOrderPlaced
           { orderId        = input ^. #orderId
           , billingAddress = input ^. #billingAddress
           , amountToBill   = input ^. #amountToBill

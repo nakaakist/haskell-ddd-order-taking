@@ -8,7 +8,9 @@ module OrderTaking.Workflows.PlaceOrderSpec
   ( spec
   ) where
 
-import           Control.Lens                   ( (.~) )
+import           Control.Lens                   ( (.~)
+                                                , (^.)
+                                                )
 import           Data.Either                    ( fromRight
                                                 , isRight
                                                 )
@@ -19,34 +21,39 @@ import           OrderTaking.Shared.EitherIO    ( liftEither
 import qualified OrderTaking.Types.BillingAmount
                                                as BillingAmount
 import qualified OrderTaking.Types.Price       as Price
-import qualified OrderTaking.Workflows.PlaceOrder.PriceOrder
+import qualified OrderTaking.Workflows.PlaceOrder.Subflows.PriceOrder
                                                as PriceOrder
-import qualified OrderTaking.Workflows.PlaceOrder.ValidateOrder
+import qualified OrderTaking.Workflows.PlaceOrder.Subflows.ValidateOrder
                                                as ValidateOrder
+import qualified OrderTaking.Workflows.PlaceOrder.Types.Dependencies
+                                               as Dependencies
+import qualified OrderTaking.Workflows.PlaceOrder.Types.Inputs
+                                               as Inputs
 import           Test.Hspec
+
 
 type Exists = Bool
 
-mockCheckProductCode :: Exists -> ValidateOrder.CheckProductCodeExists
+mockCheckProductCode :: Exists -> Dependencies.CheckProductCodeExists
 mockCheckProductCode e _ = e
 
-mockCheckAddress :: Exists -> ValidateOrder.CheckAddressExists
+mockCheckAddress :: Exists -> Dependencies.CheckAddressExists
 mockCheckAddress e address
   | e         = return address
   | otherwise = liftEither $ Left "address does not exist"
 
-mockGetProductPrice :: Double -> PriceOrder.GetProductPrice
+mockGetProductPrice :: Double -> Dependencies.GetProductPrice
 mockGetProductPrice p _ = Price.create p
 
 spec :: Spec
 spec = do
-  let unvalidatedCustomerInfo = ValidateOrder.UnvalidatedCustomerInfo
+  let unvalidatedCustomerInfo = Inputs.UnvalidatedCustomerInfo
         { firstName    = "nariyuki"
         , lastName     = "saito"
         , emailAddress = "toshincompos@gmail.com"
         }
 
-  let unvalidatedAddress = ValidateOrder.UnvalidatedAddress
+  let unvalidatedAddress = Inputs.UnvalidatedAddress
         { addressLine1 = "hoge street"
         , addressLine2 = ""
         , addressLine3 = ""
@@ -55,13 +62,13 @@ spec = do
         , zipCode      = "12345"
         }
 
-  let unvalidatedOrderLine = ValidateOrder.UnvalidatedOrderLine
+  let unvalidatedOrderLine = Inputs.UnvalidatedOrderLine
         { orderLineId = "1"
         , productCode = "W1234"
         , quantity    = 10.0
         }
 
-  let unvalidatedOrder = ValidateOrder.UnvalidatedOrder
+  let unvalidatedOrder = Inputs.UnvalidatedOrder
         { orderId         = "hoge"
         , customerInfo    = unvalidatedCustomerInfo
         , shippingAddress = unvalidatedAddress
@@ -106,10 +113,10 @@ spec = do
           >>= PriceOrder.priceOrder (mockGetProductPrice itemPrice)
 
     it "should calculate line price correctly" $ do
-      let orderLines = PriceOrder.orderLines <$> priceResult
+      let orderLines = (^. #orderLines) <$> priceResult
       let orderLine1 = head <$> orderLines
       (   Price.value
-        .   PriceOrder.linePrice
+        .   (^. #linePrice)
         .   fromRight undefined
         <$> runEitherIO orderLine1
         )
@@ -117,7 +124,7 @@ spec = do
 
     it "should calculate total amount correctly" $ do
       (   BillingAmount.value
-        .   PriceOrder.amountToBill
+        .   (^. #amountToBill)
         .   fromRight undefined
         <$> runEitherIO priceResult
         )
