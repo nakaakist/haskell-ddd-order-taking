@@ -1,6 +1,18 @@
 # haskell-ddd-order-taking
 
-## automated test using hspec and sensei
+[![build](https://github.com/nakaakist/haskell-ddd-order-taking/actions/workflows/ci.yaml/badge.svg)](https://github.com/nakaakist/haskell-ddd-order-taking/actions/workflows/ci.yaml)
+
+## About
+
+This repository is the Haskell implementation of the ["Domain Modeling Made Functional"](https://learning.oreilly.com/library/view/domain-modeling-made/9781680505481/) book.
+
+The "place order" workflow is implemented.
+
+## Run application
+
+not ready
+
+## Automated test using hspec and sensei
 
 run `stack test` to run all tests.
 
