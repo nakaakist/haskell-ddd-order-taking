@@ -46,6 +46,7 @@ library
       OrderTaking.Types.ProductCode.ProductCode
       OrderTaking.Types.ProductCode.WidgetCode
       OrderTaking.Workflows.PlaceOrder.AcknowledgeOrder
+      OrderTaking.Workflows.PlaceOrder.CreateEvents
       OrderTaking.Workflows.PlaceOrder.Events
       OrderTaking.Workflows.PlaceOrder.PriceOrder
       OrderTaking.Workflows.PlaceOrder.ValidateOrder

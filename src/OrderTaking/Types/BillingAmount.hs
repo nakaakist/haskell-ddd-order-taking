@@ -5,6 +5,7 @@ module OrderTaking.Types.BillingAmount
   , create
   , value
   , sumPrices
+  , shouldBeBilled
   ) where
 
 import           OrderTaking.Shared.DomainError ( DomainError )
@@ -24,3 +25,6 @@ value (BillingAmountPrivate p) = p
 
 sumPrices :: [Price.Price] -> Either DomainError BillingAmount
 sumPrices ps = let total = sum $ Price.value <$> ps in create total
+
+shouldBeBilled :: BillingAmount -> Bool
+shouldBeBilled (BillingAmountPrivate p) = p > 0

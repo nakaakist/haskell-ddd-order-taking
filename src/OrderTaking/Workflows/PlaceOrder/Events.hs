@@ -5,8 +5,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Workflows.PlaceOrder.Events
-  ( OrderAcknowledgmentSent(..)
+  ( PlaceOrderEvents(..)
   , OrderPlaced(..)
+  , OrderAcknowledgmentSent(..)
   , BillableOrderPlaced(..)
   ) where
 
@@ -22,13 +23,20 @@ import qualified OrderTaking.Workflows.PlaceOrder.PriceOrder
                                                as PriceOrder
 
 
+data PlaceOrderEvents = PlaceOrderEvents
+  { orderPlaced              :: OrderPlaced
+  , billableOrderPlaced      :: Maybe BillableOrderPlaced
+  , orderAcknowledgementSent :: Maybe OrderAcknowledgmentSent
+  }
+  deriving (Show, Eq, Generic)
+
+type OrderPlaced = PriceOrder.PricedOrder
+
 data OrderAcknowledgmentSent = OrderAcknowledgmentSent
   { orderId      :: OrderId.OrderId
   , emailAddress :: EmailAddress.EmailAddress
   }
   deriving (Show, Eq, Generic)
-
-type OrderPlaced = PriceOrder.PricedOrder
 
 data BillableOrderPlaced = BillableOrderPlaced
   { orderId        :: OrderId.OrderId
