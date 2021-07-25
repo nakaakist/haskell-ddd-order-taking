@@ -45,6 +45,7 @@ library
       OrderTaking.Types.ProductCode.GizmoCode
       OrderTaking.Types.ProductCode.ProductCode
       OrderTaking.Types.ProductCode.WidgetCode
+      OrderTaking.Workflows.PlaceOrder.PlaceOrder
       OrderTaking.Workflows.PlaceOrder.Subflows.AcknowledgeOrder
       OrderTaking.Workflows.PlaceOrder.Subflows.CreateEvents
       OrderTaking.Workflows.PlaceOrder.Subflows.PriceOrder

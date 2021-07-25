@@ -10,7 +10,7 @@ module OrderTaking.Workflows.PlaceOrder.Types.Dependencies
   , GetProductPrice
   , CreateOrderAcknowledgmentLetter
   , SendOrderAcknowledgment
-  , HtmlString
+  , HtmlString(..)
   , OrderAcknowledgment(..)
   , SendResult(..)
   ) where
