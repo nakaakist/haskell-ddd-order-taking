@@ -1,13 +1,15 @@
 module OrderTaking.Types.CustomerInfo.CustomerInfo
-  ( CustomerInfo (..),
-  )
-where
+  ( CustomerInfo(..)
+  ) where
 
-import qualified OrderTaking.Types.CustomerInfo.EmailAddress as EmailAddress
-import qualified OrderTaking.Types.CustomerInfo.PersonalName as PersonalName
+import qualified OrderTaking.Types.CustomerInfo.EmailAddress
+                                               as EmailAddress
+import qualified OrderTaking.Types.CustomerInfo.PersonalName
+                                               as PersonalName
+
 
 data CustomerInfo = CustomerInfo
-  { personalName :: PersonalName.PersonalName,
-    emailAddress :: EmailAddress.EmailAddress
+  { personalName :: PersonalName.PersonalName
+  , emailAddress :: EmailAddress.EmailAddress
   }
   deriving (Show, Eq)

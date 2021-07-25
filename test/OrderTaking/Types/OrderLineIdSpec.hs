@@ -1,9 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module OrderTaking.Types.OrderLineIdSpec (spec) where
+module OrderTaking.Types.OrderLineIdSpec
+  ( spec
+  ) where
 
 import qualified OrderTaking.Types.OrderLineId as OrderLineId
-import Test.Hspec
+import           Test.Hspec
 
 spec :: Spec
 spec = do

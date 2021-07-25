@@ -1,15 +1,16 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.OrderId
-  ( OrderId,
-    create,
-    value,
-  )
-where
+  ( OrderId
+  , create
+  , value
+  ) where
 
-import Data.Text (Text)
-import OrderTaking.Shared.DomainError (DomainError)
-import OrderTaking.Shared.UtilFunctions (createStringInLengthRange)
+import           Data.Text                      ( Text )
+import           OrderTaking.Shared.DomainError ( DomainError )
+import           OrderTaking.Shared.UtilFunctions
+                                                ( createStringInLengthRange )
+
 
 newtype OrderId = OrderIdPrivate Text deriving (Show, Eq)
 

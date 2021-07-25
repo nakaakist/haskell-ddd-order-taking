@@ -1,14 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.OrderQuantity.UnitQuantity
-  ( UnitQuantity,
-    create,
-    value,
-  )
-where
+  ( UnitQuantity
+  , create
+  , value
+  ) where
 
-import OrderTaking.Shared.DomainError (DomainError)
-import OrderTaking.Shared.UtilFunctions (createNumInRange)
+import           OrderTaking.Shared.DomainError ( DomainError )
+import           OrderTaking.Shared.UtilFunctions
+                                                ( createNumInRange )
+
 
 newtype UnitQuantity = UnitQuantityPrivate Int deriving (Show, Eq)
 

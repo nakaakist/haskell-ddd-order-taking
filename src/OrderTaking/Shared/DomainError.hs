@@ -1,8 +1,8 @@
 module OrderTaking.Shared.DomainError
-  ( DomainError,
-  )
-where
+  ( DomainError
+  ) where
 
-import Data.Text (Text)
+import           Data.Text                      ( Text )
+
 
 type DomainError = Text

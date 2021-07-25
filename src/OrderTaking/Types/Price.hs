@@ -1,15 +1,16 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.Price
-  ( Price (..),
-    create,
-    value,
-    multiply,
-  )
-where
+  ( Price(..)
+  , create
+  , value
+  , multiply
+  ) where
 
-import OrderTaking.Shared.DomainError (DomainError)
-import OrderTaking.Shared.UtilFunctions (createNumInRange)
+import           OrderTaking.Shared.DomainError ( DomainError )
+import           OrderTaking.Shared.UtilFunctions
+                                                ( createNumInRange )
+
 
 newtype Price = PricePrivate Double deriving (Show, Eq)
 

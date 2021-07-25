@@ -1,12 +1,12 @@
 module OrderTaking.Shared.EitherIO
-  ( EitherIO (..),
-    liftEither,
-    fromList,
-    liftIO,
-  )
-where
+  ( EitherIO(..)
+  , liftEither
+  , fromList
+  , liftIO
+  ) where
 
-import Control.Applicative (Applicative (liftA2))
+import           Control.Applicative            ( Applicative(liftA2) )
+
 
 newtype EitherIO e a = EitherIO {runEitherIO :: IO (Either e a)}
 
@@ -18,7 +18,8 @@ instance Applicative (EitherIO e) where
   fg <*> f = EitherIO $ liftA2 (<*>) (runEitherIO fg) (runEitherIO f)
 
 instance Monad (EitherIO e) where
-  m >>= mg = EitherIO $ runEitherIO m >>= either (pure . Left) (runEitherIO . mg)
+  m >>= mg =
+    EitherIO $ runEitherIO m >>= either (pure . Left) (runEitherIO . mg)
 
 -- make EitherIO from Either
 liftEither :: Either e a -> EitherIO e a
@@ -32,16 +33,17 @@ liftIO = EitherIO . fmap Right
 fromList :: [EitherIO e a] -> EitherIO e [a]
 fromList = EitherIO . fromList'
 
+
 -- private functions
 
 fromList' :: [EitherIO e a] -> IO (Either e [a])
-fromList' [] = return $ Right []
+fromList' []       = return $ Right []
 fromList' (x : xs) = do
   x' <- runEitherIO x
   case x' of
-    (Left err) -> return $ Left err
+    (Left  err) -> return $ Left err
     (Right x'') -> do
       xs' <- fromList' xs
       case xs' of
-        (Left errs) -> return $ Left errs
+        (Left  errs) -> return $ Left errs
         (Right xs'') -> return $ Right (x'' : xs'')

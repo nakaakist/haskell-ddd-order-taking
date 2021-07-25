@@ -1,11 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.Types.PdfAttachment
-  ( PdfAttachment,
-  )
-where
+  ( PdfAttachment
+  ) where
 
-import Data.ByteString (ByteString)
-import Data.Text (Text)
+import           Data.ByteString                ( ByteString )
+import           Data.Text                      ( Text )
 
-data PdfAttachment = PdfAttachment {name :: Text, bytes :: ByteString}
+
+data PdfAttachment = PdfAttachment
+  { name  :: Text
+  , bytes :: ByteString
+  }
