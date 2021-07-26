@@ -20,26 +20,26 @@ import           Data.Maybe                     ( fromJust
                                                 , isJust
                                                 , isNothing
                                                 )
+import qualified OrderTaking.DomainTypes.Address.Address
+                                               as Address
+import qualified OrderTaking.DomainTypes.BillingAmount
+                                               as BillingAmount
+import qualified OrderTaking.DomainTypes.CustomerInfo.EmailAddress
+                                               as EmailAddress
+import qualified OrderTaking.DomainTypes.Price as Price
 import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
                                                 , liftEither
                                                 , runEitherIO
                                                 )
-import qualified OrderTaking.Types.Address.Address
-                                               as Address
-import qualified OrderTaking.Types.BillingAmount
-                                               as BillingAmount
-import qualified OrderTaking.Types.CustomerInfo.EmailAddress
-                                               as EmailAddress
-import qualified OrderTaking.Types.Price       as Price
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
+                                               as Dependencies
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Inputs
+                                               as Inputs
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
+                                               as Outputs
 import qualified OrderTaking.Workflows.PlaceOrder.PlaceOrder
                                                as PlaceOrder
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Dependencies
-                                               as Dependencies
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Inputs
-                                               as Inputs
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Outputs
-                                               as Outputs
 import           Test.Hspec                     ( Spec
                                                 , describe
                                                 , it

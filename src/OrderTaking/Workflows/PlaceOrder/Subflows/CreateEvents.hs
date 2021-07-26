@@ -10,9 +10,9 @@ module OrderTaking.Workflows.PlaceOrder.Subflows.CreateEvents
 
 import           Control.Lens                   ( (^.) )
 import           Data.Generics.Labels           ( )
-import qualified OrderTaking.Types.BillingAmount
+import qualified OrderTaking.DomainTypes.BillingAmount
                                                as BillingAmount
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Outputs
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
                                                as Outputs
 
 

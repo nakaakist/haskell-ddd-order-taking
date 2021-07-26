@@ -10,22 +10,22 @@ module OrderTaking.Workflows.PlaceOrder.Subflows.PriceOrder
 
 import           Control.Lens                   ( (^.) )
 import           Data.Generics.Labels           ( )
+import qualified OrderTaking.DomainTypes.BillingAmount
+                                               as BillingAmount
+import qualified OrderTaking.DomainTypes.OrderQuantity.OrderQuantity
+                                               as OrderQuantity
+import qualified OrderTaking.DomainTypes.Price as Price
 import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
                                                 , fromList
                                                 , liftEither
                                                 )
-import qualified OrderTaking.Types.BillingAmount
-                                               as BillingAmount
-import qualified OrderTaking.Types.OrderQuantity.OrderQuantity
-                                               as OrderQuantity
-import qualified OrderTaking.Types.Price       as Price
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
+                                               as Dependencies
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
+                                               as Outputs
 import qualified OrderTaking.Workflows.PlaceOrder.Subflows.ValidateOrder
                                                as ValidateOrder
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Dependencies
-                                               as Dependencies
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Outputs
-                                               as Outputs
 
 
 -- public workflow function

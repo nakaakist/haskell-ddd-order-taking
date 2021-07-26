@@ -14,28 +14,30 @@ import           Control.Lens                   ( (^.) )
 import           Data.Generics.Labels           ( )
 import           Data.Text                      ( Text )
 import           GHC.Generics                   ( Generic )
+import qualified OrderTaking.DomainTypes.Address.Address
+                                               as Address
+import qualified OrderTaking.DomainTypes.CustomerInfo.CustomerInfo
+                                               as CustomerInfo
+import qualified OrderTaking.DomainTypes.CustomerInfo.EmailAddress
+                                               as EmailAddress
+import qualified OrderTaking.DomainTypes.CustomerInfo.PersonalName
+                                               as PersonalName
+import qualified OrderTaking.DomainTypes.OrderId
+                                               as OrderId
+import qualified OrderTaking.DomainTypes.OrderLineId
+                                               as OrderLineId
+import qualified OrderTaking.DomainTypes.OrderQuantity.OrderQuantity
+                                               as OrderQuantity
+import qualified OrderTaking.DomainTypes.ProductCode.ProductCode
+                                               as ProductCode
 import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
                                                 , fromList
                                                 , liftEither
                                                 )
-import qualified OrderTaking.Types.Address.Address
-                                               as Address
-import qualified OrderTaking.Types.CustomerInfo.CustomerInfo
-                                               as CustomerInfo
-import qualified OrderTaking.Types.CustomerInfo.EmailAddress
-                                               as EmailAddress
-import qualified OrderTaking.Types.CustomerInfo.PersonalName
-                                               as PersonalName
-import qualified OrderTaking.Types.OrderId     as OrderId
-import qualified OrderTaking.Types.OrderLineId as OrderLineId
-import qualified OrderTaking.Types.OrderQuantity.OrderQuantity
-                                               as OrderQuantity
-import qualified OrderTaking.Types.ProductCode.ProductCode
-                                               as ProductCode
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Dependencies
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
                                                as Dependencies
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Inputs
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Inputs
                                                as Inputs
 
 

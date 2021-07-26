@@ -13,6 +13,12 @@ import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
                                                 , liftIO
                                                 )
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
+                                               as Dependencies
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Inputs
+                                               as Inputs
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
+                                               as Outputs
 import qualified OrderTaking.Workflows.PlaceOrder.Subflows.AcknowledgeOrder
                                                as AcknowledgeOrder
 import qualified OrderTaking.Workflows.PlaceOrder.Subflows.CreateEvents
@@ -21,12 +27,6 @@ import qualified OrderTaking.Workflows.PlaceOrder.Subflows.PriceOrder
                                                as PriceOrder
 import qualified OrderTaking.Workflows.PlaceOrder.Subflows.ValidateOrder
                                                as ValidateOrder
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Dependencies
-                                               as Dependencies
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Inputs
-                                               as Inputs
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Outputs
-                                               as Outputs
 -- public workflow function
 
 placeOrder

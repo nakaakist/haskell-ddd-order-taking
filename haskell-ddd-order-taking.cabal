@@ -26,33 +26,33 @@ source-repository head
 library
   exposed-modules:
       Lib
+      OrderTaking.DomainTypes.Address.Address
+      OrderTaking.DomainTypes.Address.ZipCode
+      OrderTaking.DomainTypes.BillingAmount
+      OrderTaking.DomainTypes.CustomerInfo.CustomerInfo
+      OrderTaking.DomainTypes.CustomerInfo.EmailAddress
+      OrderTaking.DomainTypes.CustomerInfo.PersonalName
+      OrderTaking.DomainTypes.OrderId
+      OrderTaking.DomainTypes.OrderLineId
+      OrderTaking.DomainTypes.OrderQuantity.KilogramQuantity
+      OrderTaking.DomainTypes.OrderQuantity.OrderQuantity
+      OrderTaking.DomainTypes.OrderQuantity.UnitQuantity
+      OrderTaking.DomainTypes.PdfAttachment
+      OrderTaking.DomainTypes.Price
+      OrderTaking.DomainTypes.ProductCode.GizmoCode
+      OrderTaking.DomainTypes.ProductCode.ProductCode
+      OrderTaking.DomainTypes.ProductCode.WidgetCode
       OrderTaking.Shared.DomainError
       OrderTaking.Shared.EitherIO
       OrderTaking.Shared.UtilFunctions
-      OrderTaking.Types.Address.Address
-      OrderTaking.Types.Address.ZipCode
-      OrderTaking.Types.BillingAmount
-      OrderTaking.Types.CustomerInfo.CustomerInfo
-      OrderTaking.Types.CustomerInfo.EmailAddress
-      OrderTaking.Types.CustomerInfo.PersonalName
-      OrderTaking.Types.OrderId
-      OrderTaking.Types.OrderLineId
-      OrderTaking.Types.OrderQuantity.KilogramQuantity
-      OrderTaking.Types.OrderQuantity.OrderQuantity
-      OrderTaking.Types.OrderQuantity.UnitQuantity
-      OrderTaking.Types.PdfAttachment
-      OrderTaking.Types.Price
-      OrderTaking.Types.ProductCode.GizmoCode
-      OrderTaking.Types.ProductCode.ProductCode
-      OrderTaking.Types.ProductCode.WidgetCode
+      OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
+      OrderTaking.Workflows.PlaceOrder.DomainTypes.Inputs
+      OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
       OrderTaking.Workflows.PlaceOrder.PlaceOrder
       OrderTaking.Workflows.PlaceOrder.Subflows.AcknowledgeOrder
       OrderTaking.Workflows.PlaceOrder.Subflows.CreateEvents
       OrderTaking.Workflows.PlaceOrder.Subflows.PriceOrder
       OrderTaking.Workflows.PlaceOrder.Subflows.ValidateOrder
-      OrderTaking.Workflows.PlaceOrder.Types.Dependencies
-      OrderTaking.Workflows.PlaceOrder.Types.Inputs
-      OrderTaking.Workflows.PlaceOrder.Types.Outputs
   other-modules:
       Paths_haskell_ddd_order_taking
   hs-source-dirs:
@@ -95,14 +95,14 @@ test-suite haskell-ddd-order-taking-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      OrderTaking.Types.AddressSpec
-      OrderTaking.Types.BillingAmountSpec
-      OrderTaking.Types.CustomerInfoSpec
-      OrderTaking.Types.OrderIdSpec
-      OrderTaking.Types.OrderLineIdSpec
-      OrderTaking.Types.OrderQuantitySpec
-      OrderTaking.Types.PriceSpec
-      OrderTaking.Types.ProductCodeSpec
+      OrderTaking.DomainTypes.AddressSpec
+      OrderTaking.DomainTypes.BillingAmountSpec
+      OrderTaking.DomainTypes.CustomerInfoSpec
+      OrderTaking.DomainTypes.OrderIdSpec
+      OrderTaking.DomainTypes.OrderLineIdSpec
+      OrderTaking.DomainTypes.OrderQuantitySpec
+      OrderTaking.DomainTypes.PriceSpec
+      OrderTaking.DomainTypes.ProductCodeSpec
       OrderTaking.Workflows.PlaceOrderSpec
       Paths_haskell_ddd_order_taking
   hs-source-dirs:

@@ -9,9 +9,9 @@ module OrderTaking.Workflows.PlaceOrder.Subflows.AcknowledgeOrder where
 
 import           Control.Lens                   ( (^.) )
 import           Data.Generics.Labels           ( )
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Dependencies
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
                                                as Dependencies
-import qualified OrderTaking.Workflows.PlaceOrder.Types.Outputs
+import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
                                                as Outputs
 
 -- public workflow function
