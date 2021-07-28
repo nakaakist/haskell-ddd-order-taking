@@ -11,6 +11,9 @@ import           Data.Aeson                     ( FromJSON
                                                 )
 import           Data.Text                      ( Text )
 import           GHC.Generics                   ( Generic )
+import           Network.HTTP.Types.Status      ( status202
+                                                , status400
+                                                )
 import qualified OrderTaking.DomainTypes.Price as Price
 import           OrderTaking.Shared.EitherIO    ( runEitherIO )
 import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
@@ -26,6 +29,7 @@ import           Web.Scotty                     ( ActionM
                                                 , json
                                                 , jsonData
                                                 , post
+                                                , status
                                                 )
 
 
@@ -41,8 +45,11 @@ routes = do
       mockSendOrderAcknowledgment
       unvalidatedOrder
     case result of
-      Left err -> json $ ErrorResponse { message = err }
-      Right placeOrderEvents ->
+      Left err -> do
+        status status400
+        json $ ErrorResponse { message = err }
+      Right placeOrderEvents -> do
+        status status202
         json $ OutputDtos.placeOrderEventsDtoFromDomain placeOrderEvents
 
 
