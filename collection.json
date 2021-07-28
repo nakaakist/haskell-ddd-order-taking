@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "fc115d1e-ceeb-4150-8653-94727d2d3889",
+		"name": "haskell-ddd-order-taking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "valid-order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"test@example.com\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street 1\",\n        \"addressLine2\": \"test shipping street 2\",\n        \"addressLine3\": \"test shipping street 3\",\n        \"addressLine4\": \"test shipping street 4\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"54321\"\n    },\n    \"orderLines\": [\n        {\n            \"orderLineId\": \"test-order-line-id1\",\n            \"productCode\": \"W1234\",\n            \"quantity\": 1\n        },\n        {\n            \"orderLineId\": \"test-order-line-id2\",\n            \"productCode\": \"G123\",\n            \"quantity\": 1.25\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "valid-order-no-billing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"test@example.com\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"54321\"\n    },\n    \"orderLines\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid-order-field-lacking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid-order-malformed-widget-code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"test@example.com\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"54321\"\n    },\n    \"orderLines\": [\n        {\n            \"orderLineId\": \"test-order-line-id1\",\n            \"productCode\": \"W-invalid\",\n            \"quantity\": 1\n        },\n        {\n            \"orderLineId\": \"test-order-line-id2\",\n            \"productCode\": \"G123\",\n            \"quantity\": 1.25\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid-order-malformed-gizmo-code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"test@example.com\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"54321\"\n    },\n    \"orderLines\": [\n        {\n            \"orderLineId\": \"test-order-line-id1\",\n            \"productCode\": \"W1234\",\n            \"quantity\": 1\n        },\n        {\n            \"orderLineId\": \"test-order-line-id2\",\n            \"productCode\": \"G-invalid\",\n            \"quantity\": 1.25\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid-unit-quantity-out-of-range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"test@example.com\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"54321\"\n    },\n    \"orderLines\": [\n        {\n            \"orderLineId\": \"test-order-line-id1\",\n            \"productCode\": \"W1234\",\n            \"quantity\": 0\n        },\n        {\n            \"orderLineId\": \"test-order-line-id2\",\n            \"productCode\": \"G123\",\n            \"quantity\": 1.25\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid-kilogram-quantity-out-of-range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"test@example.com\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"54321\"\n    },\n    \"orderLines\": [\n        {\n            \"orderLineId\": \"test-order-line-id1\",\n            \"productCode\": \"W1234\",\n            \"quantity\": 1\n        },\n        {\n            \"orderLineId\": \"test-order-line-id2\",\n            \"productCode\": \"G123\",\n            \"quantity\": 0.25\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid-order-malformed-email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"invalid\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"54321\"\n    },\n    \"orderLines\": [\n        {\n            \"orderLineId\": \"test-order-line-id1\",\n            \"productCode\": \"W1234\",\n            \"quantity\": 1\n        },\n        {\n            \"orderLineId\": \"test-order-line-id2\",\n            \"productCode\": \"G123\",\n            \"quantity\": 1.25\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid-order-malformed-zipcode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"test-order-id\",\n    \"customerInfo\": {\n        \"firstName\": \"test-first-name\",\n        \"lastName\": \"test-last-name\",\n        \"emailAddress\": \"test@example.com\"\n    },\n    \"shippingAddress\": {\n        \"addressLine1\": \"test shipping street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test shipping city\",\n        \"zipCode\": \"12345\"\n    },\n    \"billingAddress\": {\n        \"addressLine1\": \"test billing street\",\n        \"addressLine2\": \"\",\n        \"addressLine3\": \"\",\n        \"addressLine4\": \"\",\n        \"city\": \"test billing city\",\n        \"zipCode\": \"invalid\"\n    },\n    \"orderLines\": [\n        {\n            \"orderLineId\": \"test-order-line-id1\",\n            \"productCode\": \"W1234\",\n            \"quantity\": 1\n        },\n        {\n            \"orderLineId\": \"test-order-line-id2\",\n            \"productCode\": \"G123\",\n            \"quantity\": 1.25\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
