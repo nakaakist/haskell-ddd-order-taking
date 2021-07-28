@@ -11,6 +11,9 @@ module OrderTaking.DomainTypes.Address.Address
   , value
   ) where
 
+import           Data.Aeson                     ( FromJSON
+                                                , ToJSON
+                                                )
 import           Data.Text                      ( Text )
 import           GHC.Generics                   ( Generic )
 import qualified OrderTaking.DomainTypes.Address.ZipCode
@@ -41,7 +44,8 @@ data Params = Params
   , zipCode      :: Text
   }
   deriving (Show, Eq, Generic)
-
+instance ToJSON Params
+instance FromJSON Params
 
 create :: Params -> Either DomainError Address
 create Params { addressLine1 = a1, addressLine2 = a2, addressLine3 = a3, addressLine4 = a4, city = c, zipCode = z }

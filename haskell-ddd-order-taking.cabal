@@ -45,9 +45,12 @@ library
       OrderTaking.Shared.DomainError
       OrderTaking.Shared.EitherIO
       OrderTaking.Shared.UtilFunctions
+      OrderTaking.Workflows.PlaceOrder.Api
       OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
       OrderTaking.Workflows.PlaceOrder.DomainTypes.Inputs
       OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
+      OrderTaking.Workflows.PlaceOrder.Dtos.InputDtos
+      OrderTaking.Workflows.PlaceOrder.Dtos.OutputDtos
       OrderTaking.Workflows.PlaceOrder.PlaceOrder
       OrderTaking.Workflows.PlaceOrder.Subflows.AcknowledgeOrder
       OrderTaking.Workflows.PlaceOrder.Subflows.CreateEvents
@@ -64,6 +67,7 @@ library
     , email-validate >=2.3.2.15
     , generic-lens >=2.1.0.0
     , lens >=4.19.2
+    , mtl >=2.2.2
     , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
     , text >=1.2.4.1
@@ -85,6 +89,7 @@ executable haskell-ddd-order-taking-exe
     , generic-lens >=2.1.0.0
     , haskell-ddd-order-taking
     , lens >=4.19.2
+    , mtl >=2.2.2
     , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
     , text >=1.2.4.1
@@ -116,6 +121,7 @@ test-suite haskell-ddd-order-taking-test
     , haskell-ddd-order-taking
     , hspec ==2.*
     , lens >=4.19.2
+    , mtl >=2.2.2
     , regex-tdfa >=1.3.1.1 && <1.4
     , scotty >=0.12
     , text >=1.2.4.1

@@ -11,6 +11,9 @@ module OrderTaking.Workflows.PlaceOrder.DomainTypes.Inputs
   , UnvalidatedOrder(..)
   ) where
 
+import           Data.Aeson                     ( FromJSON
+                                                , ToJSON
+                                                )
 import           Data.Generics.Labels           ( )
 import           Data.Text                      ( Text )
 import           GHC.Generics                   ( Generic )
@@ -26,6 +29,8 @@ data UnvalidatedOrder = UnvalidatedOrder
   , orderLines      :: [UnvalidatedOrderLine]
   }
   deriving (Show, Eq, Generic)
+instance ToJSON UnvalidatedOrder
+instance FromJSON UnvalidatedOrder
 
 data UnvalidatedCustomerInfo = UnvalidatedCustomerInfo
   { firstName    :: Text
@@ -33,6 +38,8 @@ data UnvalidatedCustomerInfo = UnvalidatedCustomerInfo
   , emailAddress :: Text
   }
   deriving (Show, Eq, Generic)
+instance ToJSON UnvalidatedCustomerInfo
+instance FromJSON UnvalidatedCustomerInfo
 
 data UnvalidatedAddress = UnvalidatedAddress
   { addressLine1 :: Text
@@ -43,6 +50,8 @@ data UnvalidatedAddress = UnvalidatedAddress
   , zipCode      :: Text
   }
   deriving (Show, Eq, Generic)
+instance ToJSON UnvalidatedAddress
+instance FromJSON UnvalidatedAddress
 
 data UnvalidatedOrderLine = UnvalidatedOrderLine
   { orderLineId :: Text
@@ -50,3 +59,5 @@ data UnvalidatedOrderLine = UnvalidatedOrderLine
   , quantity    :: Double
   }
   deriving (Show, Eq, Generic)
+instance ToJSON UnvalidatedOrderLine
+instance FromJSON UnvalidatedOrderLine

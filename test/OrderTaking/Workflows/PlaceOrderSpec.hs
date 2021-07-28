@@ -20,12 +20,6 @@ import           Data.Maybe                     ( fromJust
                                                 , isJust
                                                 , isNothing
                                                 )
-import qualified OrderTaking.DomainTypes.Address.Address
-                                               as Address
-import qualified OrderTaking.DomainTypes.BillingAmount
-                                               as BillingAmount
-import qualified OrderTaking.DomainTypes.CustomerInfo.EmailAddress
-                                               as EmailAddress
 import qualified OrderTaking.DomainTypes.Price as Price
 import           OrderTaking.Shared.DomainError ( DomainError )
 import           OrderTaking.Shared.EitherIO    ( EitherIO
@@ -36,8 +30,8 @@ import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Dependencies
                                                as Dependencies
 import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Inputs
                                                as Inputs
-import qualified OrderTaking.Workflows.PlaceOrder.DomainTypes.Outputs
-                                               as Outputs
+import qualified OrderTaking.Workflows.PlaceOrder.Dtos.OutputDtos
+                                               as OutputDtos
 import qualified OrderTaking.Workflows.PlaceOrder.PlaceOrder
                                                as PlaceOrder
 import           Test.Hspec                     ( Spec
@@ -109,32 +103,22 @@ spec = do
 
       it "should output order placed event with correct amount to bill"
         $              do
-                         BillingAmount.value
-        .              (^. #amountToBill)
+                         (^. #amountToBill)
         .              (^. #orderPlaced)
         <$>            events
         `shouldReturn` 200.0
 
       it "should output order placed event with correct addresses" $ do
         let shippingCity =
-              (^. #city)
-                .   Address.value
-                .   (^. #shippingAddress)
-                .   (^. #orderPlaced)
-                <$> events
+              (^. #city) . (^. #shippingAddress) . (^. #orderPlaced) <$> events
         let billingCity =
-              (^. #city)
-                .   Address.value
-                .   (^. #billingAddress)
-                .   (^. #orderPlaced)
-                <$> events
+              (^. #city) . (^. #billingAddress) . (^. #orderPlaced) <$> events
         shippingCity `shouldReturn` "shipping city"
         billingCity `shouldReturn` "billing city"
 
       it "should output billable order placed event with correct amount to bill"
         $              do
-                         BillingAmount.value
-        .              (^. #amountToBill)
+                         (^. #amountToBill)
         .              fromJust
         .              (^. #billableOrderPlaced)
         <$>            events
@@ -144,7 +128,6 @@ spec = do
           "should output billable order placed event with correct billing address"
         $              do
                          (^. #city)
-        .              Address.value
         .              (^. #billingAddress)
         .              fromJust
         .              (^. #billableOrderPlaced)
@@ -155,7 +138,6 @@ spec = do
           "should output billable order placed event with correct billing address"
         $              do
                          (^. #city)
-        .              Address.value
         .              (^. #billingAddress)
         .              fromJust
         .              (^. #billableOrderPlaced)
@@ -165,8 +147,7 @@ spec = do
       it
           "should output order acknowledgement sent event with correct email address"
         $              do
-                         EmailAddress.value
-        .              (^. #emailAddress)
+                         (^. #emailAddress)
         .              fromJust
         .              (^. #orderAcknowledgementSent)
         <$>            events
@@ -232,10 +213,13 @@ mockPlaceOrder
   -> ItemPrice
   -> IsLetterSent
   -> Inputs.UnvalidatedOrder
-  -> EitherIO DomainError Outputs.PlaceOrderEvents
-mockPlaceOrder productCodeExists isAddressValid itemPrice isLetterSent =
-  PlaceOrder.placeOrder (mockCheckProductCode productCodeExists)
-                        (mockCheckAddress isAddressValid)
-                        (mockGetProductPrice itemPrice)
-                        mockCreateOrderAcknowledgementLetter
-                        (mockSendOrderAcknowledgment isLetterSent)
+  -> EitherIO DomainError OutputDtos.PlaceOrderEventsDto
+mockPlaceOrder productCodeExists isAddressValid itemPrice isLetterSent unvalidatedOrder
+  = let result = PlaceOrder.placeOrder
+          (mockCheckProductCode productCodeExists)
+          (mockCheckAddress isAddressValid)
+          (mockGetProductPrice itemPrice)
+          mockCreateOrderAcknowledgementLetter
+          (mockSendOrderAcknowledgment isLetterSent)
+          unvalidatedOrder
+    in  OutputDtos.placeOrderEventsDtoFromDomain <$> result

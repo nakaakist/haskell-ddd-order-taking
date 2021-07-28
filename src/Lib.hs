@@ -5,16 +5,10 @@ module Lib
   ( main
   ) where
 
-import qualified Data.Aeson
-import           GHC.Generics
-import           Web.Scotty
-
-data Payload = Payload
-  { a :: String
-  }
-  deriving Generic
-
-instance Data.Aeson.ToJSON Payload
+import qualified OrderTaking.Workflows.PlaceOrder.Api
+                                               as PlaceOrderApi
+import           Web.Scotty                     ( scotty )
 
 main :: IO ()
-main = scotty 3000 $ get "/" $ json $ Payload { a = "test" }
+main = scotty 3000 $ do
+  PlaceOrderApi.routes
