@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.DomainTypes.Price
-  ( Price(..)
+  ( Price
   , create
   , value
   , multiply

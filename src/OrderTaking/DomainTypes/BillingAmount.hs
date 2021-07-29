@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module OrderTaking.DomainTypes.BillingAmount
-  ( BillingAmount(..)
+  ( BillingAmount
   , create
   , value
   , sumPrices
